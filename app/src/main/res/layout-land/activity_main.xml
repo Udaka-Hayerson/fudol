@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBgColor"
+    tools:context=".MainActivity">
+
+
+    <EditText
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/asideBgColor"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="@string/e_your_d_of_b"
+        android:textColorHint="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoToSecAct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnGoToSecAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="171dp"
+        android:background="@color/asideBgColor"
+        android:text="@string/action_sign_in"
+        android:textColorHint="@color/asideBgColor"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    android:id="@+id/constraintLayout"-->
+<!--    android:layout_width="500dp"-->
+<!--    android:layout_height="40dp"-->
+<!--    android:background="@color/asideBgColor"-->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="338dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:fontFamily="@font/montserrat"-->
+<!--        android:gravity="center|center_horizontal"-->
+<!--        android:text="@string/you_now"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.492"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.333"-->
+<!--        tools:ignore="TextContrastCheck" />-->
+
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView4"-->
+    <!--android:layout_width="230dp"-->
+    <!--android:layout_height="230dp"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:srcCompat="@drawable/die_plane_b"-->
+    <!--tools:ignore="ContentDescription" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView10"-->
+    <!--android:layout_width="230dp"-->
+    <!--android:layout_height="230dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:srcCompat="@drawable/white"-->
+    <!--tools:ignore="ContentDescription" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView"-->
+    <!--android:layout_width="240dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_marginTop="91dp"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:background="@color/asideBgColor"-->
+    <!--android:gravity="center|center_horizontal"-->
+    <!--android:text="@string/sec_to_die"-->
+    <!--android:textSize="24sp"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/constraintLayout"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/imageView10"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/imageView4"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView3"-->
+    <!--android:layout_width="240dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:layout_marginBottom="91dp"-->
+    <!--android:background="@color/asideBgColor"-->
+    <!--android:gravity="center|center_horizontal"-->
+    <!--android:text="@string/sec_after_born"-->
+    <!--android:textSize="24sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/imageView10"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/imageView4"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />-->
+
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->

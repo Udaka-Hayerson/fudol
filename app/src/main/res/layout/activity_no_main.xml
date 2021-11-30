@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBgColor"
+    tools:context=".NoMainActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="28dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center|center_vertical"
+        android:text="@string/you_are_here"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView666"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/asideBgColor"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/its_you"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="-5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center|center_vertical"
+        android:text="@string/you_are_now"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/die_plane_b"
+        tools:ignore="ContentDescription" />
+    <!--        android:contentDescription="@string/wPiBb"-->
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/white"
+        tools:ignore="ContentDescription" />
+    <!--        android:contentDescription="@string/bPiWb" -->
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="170dp"
+        android:background="@color/asideBgColor"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:rotation="-90"
+        android:rotationX="180"
+        android:rotationY="180"
+        android:text="@string/sec_to_die"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/time_wiew"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginBottom="140dp"
+        android:background="@color/asideBgColor"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:rotation="270"
+        android:text="@string/sec_after_born"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btnBackAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/asideBgColor"
+        android:backgroundTint="@color/black"
+        android:backgroundTintMode="src_over"
+        android:text="@string/back"
+        android:textColorHint="@color/mainBgColor"
+        android:textColorLink="#E8E2E2"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

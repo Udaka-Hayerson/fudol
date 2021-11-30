@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">futudoll</string>
+    <string name="sec_after_born">1000000000</string>
+    <string name="sec_to_die">1000000000</string>
+    <string name="main_you_nowhere">YOU:RE:HERE+]×[-YOU:RE:NOW</string>
+    <string name="you_are_here">YOU:RE:HERE</string>
+    <string name="its_you">++]×[- -</string>
+    <string name="you_are_now">YOU:RE:NOW</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">(logIN)++]]×[[- -(NIgol)</string>
+    <string name="prompt_password">PasworD</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome Mike.Hayerson."</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="wPiBb">White plane in black background</string>
+    <string name="bPiWb">Black plane in white background</string>
+
+    <string name="year">YEAR</string>
+    <string name="month">MONTH</string>
+    <string name="day">DAY</string>
+    <string name="hours">HOURS</string>
+    <string name="minutes">MINUTES</string>
+    <string name="seconds">SECONDS</string>
+    <string name="e_your_d_of_b">enter your date of birth in the format yyyy.mm.dd</string>
+    <string name="back">Back</string>
+
+
+    <!--    <string name="sec_in_sec">00000000000</string>-->
+</resources>
