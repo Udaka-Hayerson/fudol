@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Futudoll">
         <activity
+            android:name=".PohuyActivity"
+            android:exported="true" />
+        <activity
             android:name=".NoMainActivity"
             android:exported="true" />
         <activity
