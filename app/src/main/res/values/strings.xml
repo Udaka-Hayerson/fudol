@@ -1,14 +1,21 @@
 <resources>
     <string name="app_name">futudoll</string>
+    <string name="calculation">
+        (Y * 365 * 24 * 60 * 60) + (M * 30 * 24 * 60 * 60) + (D * 24 * 60 * 60)
+        + (h * 60 * 60) + (m * 60 * 60) =  seconds after born.....
+        ((100 - Y) * 365 * 24 * 60 * 60) + ((12 - M) * 30 * 24 * 60 * 60)
+        + ((30 - D) * 24 * 60 * 60) + ((24 - h) * 60 * 60) +
+        ((60 - m) * 60) = seconds to dead.
+    </string>
     <string name="time_about_birthday">0000000000</string>
-    <string name="time_to_die">0000000000</string>time_to_die
-    <string name="e_your_d_of_b">enter your birthday in the format yyyymmdd</string>
-    <string name="yyyy.mm.dd">enter yyyymmdd</string>
+    <string name="time_to_die">0000000000</string>
+    <string name="e_your_birth">enter your calculations here:&#10;seconds after born</string>
+    <string name="e_your_dead">enter your calculations here:&#10;seconds to dead</string>
     <string name="die_time">\" до смерти остплось 1000000000 сек\"</string>
     <string name="born_time">\" вы прожили 1000000000 сек\"</string>
     <string name="save">SAVE</string>
     <string name="show">SHOW</string>
-    <string name="next">NEXT</string>
+    <string name="next">SAVE and G000</string>
     <string name="back_reg">BACK</string>
     <string name="sec_after_born">0000000000</string>
     <string name="sec_to_die">0000000000</string>
@@ -35,7 +42,20 @@
     <string name="seconds">SECONDS</string>
     <string name="back">Back</string>
     <string name="empty"> </string>
+    <string name="input_your_name_n">Input your Name</string>
+    <string name="first_name_n">First Name</string>
+    <string name="submit">Submit</string>
+    <string name="last_name">Last Name</string>
 
 
     <!--    <string name="sec_in_sec">00000000000</string>-->
 </resources>
+
+    <!--    (Y * 365*24*60*60)+(M * 30*24*60*60) + &#10;-->
+    <!--    (D * 24*60*60)+(h * 60*60)+&#10;-->
+    <!--    (m * 60*60) = seconds after born.&#10;-->
+    <!--    ( (100-Y)*365*24*60*60) +&#10;-->
+    <!--    ( (12-M) * 30*24*60*60) +&#10;-->
+    <!--    ( (30-D) * 24*60*60) +&#10;-->
+    <!--    ( (24-h) * 60*60)+( (60-m) =&#10;-->
+    <!--    = seconds to dead.-->

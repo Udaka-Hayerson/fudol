@@ -9,75 +9,91 @@
 
 
     <EditText
-        android:id="@+id/editTextData"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="80dp"
+        android:id="@+id/editBirthData"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@color/seriy"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:hint="@string/yyyy.mm.dd"
+        android:hint="@string/e_your_birth"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/dataView"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/editDeadData"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/seriy"
+        android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="@string/e_your_dead"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBirthData"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
 
     <TextView
         android:id="@+id/dataView"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/seriy"
+        android:text="@string/calculation"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextData" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="saveData"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dataView"
-        tools:ignore="UsingOnClickInXml" />
+<!--    <Button-->
+<!--        android:id="@+id/btnSave"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:onClick="saveData"-->
+<!--        android:text="@string/save"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/dataView"-->
+<!--        tools:ignore="UsingOnClickInXml" />-->
 
-    <Button
-        android:id="@+id/btnShow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="openData"
-        android:text="@string/show"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSave"
-        tools:ignore="UsingOnClickInXml" />
+<!--    <Button-->
+<!--        android:id="@+id/btnShow"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:onClick="openData"-->
+<!--        android:text="@string/show"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnSave"-->
+<!--        tools:ignore="UsingOnClickInXml" />-->
 
     <Button
         android:id="@+id/btnGoTo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="48dp"
         android:text="@string/next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnShow" />
+        app:layout_constraintTop_toBottomOf="@+id/dataView" />
 
 
 

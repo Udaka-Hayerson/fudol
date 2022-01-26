@@ -1,23 +1,33 @@
 package com.example.futudoll;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.appcompat.app.AppCompatActivity;
+//import android.app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+//import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class NoMainActivity extends AppCompatActivity
 {
-
+    public long dead_d;
+    public long birth_b;
+    public Button btnBackAct;
+    public Button btnNext;
+    public Button btnStartCount;
+//    public ProgressBar prossBar;
+    public TextView t_t_die;
+    public TextView t_a_birth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,71 +35,75 @@ public class NoMainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_main);
 
-//        Button btnSCount = (Button) findViewById(R.id.btnSCount);
-//        View.OnClickListener onCickStartCount = new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                Log.d(TAG, "Click GoTo");
-//
-//            }
-//        };
-//        btnSCount.setOnClickListener(onCickStartCount);
+//        prossBar = (ProgressBar) findViewById(R.id.progressBar);
+        t_t_die = (TextView) findViewById(R.id.time_to_die);
+        t_a_birth = (TextView) findViewById(R.id.time_a_birth);
+        Intent intent = getIntent();
+        dead_d = Long.parseLong(intent.getStringExtra("dead_day"));
+        birth_b = Long.parseLong(intent.getStringExtra("birth_day"));
+
+        btnBackAct = (Button) findViewById(R.id.btnBackAct);
+        btnNext = (Button) findViewById(R.id.btnNextAct);
+        btnStartCount = (Button) findViewById(R.id.btnStartCount);
 
 
-        Button btnBackAct = (Button) findViewById(R.id.btnBackAct);
-        View.OnClickListener oclBtnBackAct = new View.OnClickListener()
-        {
+        OnClickListener oclBack = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentBack = new Intent(NoMainActivity.this , MainActivity.class);
+                startActivity(intentBack);
+
+            }
+        };
+        btnBackAct.setOnClickListener(oclBack);
+
+
+        OnClickListener oclNext = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentNext = new Intent(NoMainActivity.this , ErrorActivity.class);
+                startActivity(intentNext);
+            }
+        };
+        btnNext.setOnClickListener(oclNext);
+
+
+        OnClickListener oclStartCount = new OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(NoMainActivity.this , MainActivity.class);
-                startActivity(intent);
+                new Timer().scheduleAtFixedRate(new TimerTask()
+                {
+                    @Override
+                    public void run()
+                    {
+                        t_t_die.setText("" + (dead_d--));
+                        t_a_birth.setText("" + (birth_b++));
+                        //Log.i("tag", "A Kiss every 5 seconds");
+                    }
+
+                },0,1000);
+
             }
         };
-        btnBackAct.setOnClickListener(oclBtnBackAct);
-
-
-        Button btnNextFrame = (Button) findViewById(R.id.btnNext);
-        View.OnClickListener oclBtnNext = new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(NoMainActivity.this , PohuyActivity.class);
-                startActivity(intent);
-            }
-        };
-        btnNextFrame.setOnClickListener(oclBtnNext);
-
+        btnStartCount.setOnClickListener(oclStartCount);
     }
 
-    public void editData(View view) {
-        FileInputStream fileInput2 = null;
-        TextView birthShow = findViewById(R.id.time_a_b);
-        TextView dieShow = findViewById(R.id.time_to_die);
-
-        try {
-            fileInput2 = openFileInput(MainActivity.FILE_NAME);
-            byte[] bytes2;
-            bytes2 = new byte[1024];
-            fileInput2.read(bytes2);
-            String sec_ab_birth = new String(bytes2);
-            String sec_to_die = new String(bytes2);
-            birthShow.setText(sec_ab_birth);
-            dieShow.setText(sec_to_die);
-            fileInput2.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileInput2 != null)
-                    fileInput2.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
+
+
+//                new CountDownTimer( dead_d , 1000)
+//                {
+//                    @Override
+//                    public void onTick(long l)
+//                    {
+//                        //t_a_birth.setText();
+//                        t_t_die.setText("" + l / 1000);
+//                        prossBar.setProgress((int) (l / 1000));
+//                    }
+//                    @Override
+//                    public void onFinish()
+//                    {
+//                        t_t_die.setText(R.string.sec_to_die);
+//                    }
+//                }.start();

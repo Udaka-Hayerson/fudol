@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".PohuyActivity">
 
+    <TextView
+        android:id="@+id/tvView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:background="@color/seriy"
+        android:gravity="center"
+        android:text="@string/show"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/btnBackReg"
         android:layout_width="match_parent"
