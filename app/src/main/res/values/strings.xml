@@ -5,7 +5,7 @@
         + (h * 60 * 60) + (m * 60 * 60) =  seconds after born.....
         ((100 - Y) * 365 * 24 * 60 * 60) + ((12 - M) * 30 * 24 * 60 * 60)
         + ((30 - D) * 24 * 60 * 60) + ((24 - h) * 60 * 60) +
-        ((60 - m) * 60) = seconds to dead.
+        ((60 - m) * 60) = seconds to dead. b864636600 d2002896600
     </string>
     <string name="time_about_birthday">0000000000</string>
     <string name="time_to_die">0000000000</string>
