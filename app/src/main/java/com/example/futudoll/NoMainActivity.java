@@ -1,6 +1,5 @@
 package com.example.futudoll;
 
-//import android.app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ public class NoMainActivity extends AppCompatActivity
     public Button btnBackAct;
     public Button btnNext;
     public Button btnStartCount;
-//    public ProgressBar prossBar;
     public TextView t_t_die;
     public TextView t_a_birth;
 
@@ -35,7 +33,7 @@ public class NoMainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_main);
 
-//        prossBar = (ProgressBar) findViewById(R.id.progressBar);
+
         t_t_die = (TextView) findViewById(R.id.time_to_die);
         t_a_birth = (TextView) findViewById(R.id.time_a_birth);
         Intent intent = getIntent();
@@ -90,20 +88,3 @@ public class NoMainActivity extends AppCompatActivity
     }
 
 }
-
-
-//                new CountDownTimer( dead_d , 1000)
-//                {
-//                    @Override
-//                    public void onTick(long l)
-//                    {
-//                        //t_a_birth.setText();
-//                        t_t_die.setText("" + l / 1000);
-//                        prossBar.setProgress((int) (l / 1000));
-//                    }
-//                    @Override
-//                    public void onFinish()
-//                    {
-//                        t_t_die.setText(R.string.sec_to_die);
-//                    }
-//                }.start();

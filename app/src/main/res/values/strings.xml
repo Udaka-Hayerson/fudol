@@ -46,6 +46,7 @@
     <string name="first_name_n">First Name</string>
     <string name="submit">Submit</string>
     <string name="last_name">Last Name</string>
+    <string name="work_time">enable the work timer</string>
 
 
     <!--    <string name="sec_in_sec">00000000000</string>-->

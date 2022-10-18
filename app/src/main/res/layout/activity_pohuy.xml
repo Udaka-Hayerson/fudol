@@ -23,12 +23,35 @@
 
     <Button
         android:id="@+id/btnBackReg"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="0dp"
+        android:layout_height="163dp"
         android:text="@string/back_reg"
         android:textSize="120sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/timerView"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/seriy"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvView" />
+
+    <Button
+        android:id="@+id/work_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/work_time"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

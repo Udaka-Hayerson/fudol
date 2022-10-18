@@ -22,21 +22,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-//(Y * 365*24*60*60)+(M * 30*24*60*60)+(D * 24*60*60)+(h * 60*60)+(m * 60*60)  =  seconds after born.
-// ( (100-Y)*365*24*60*60)+( (12-M) * 30*24*60*60)+( (30-D) * 24*60*60)+( (24-h) * 60*60)+( (60-m) * 60)   =  seconds to dead.
-//
-//(Y * 365 * 24 * 60 * 60) + (M * 30 * 24 * 60 * 60) +
-// (D * 24 * 60 * 60) + (h * 60 * 60) + (m * 60 * 60)
-// =  seconds after born.
-// ((100 - Y) * 365 * 24 * 60 * 60) +
-// ((12 - M) * 30 * 24 * 60 * 60) +
-// ((30 - D) * 24 * 60 * 60) + ((24 - h) * 60 * 60) +
-// ((60 - m) * 60) = seconds to dead.
 
 
 public class MainActivity extends AppCompatActivity {
 
-//    public static String FILE_NAME = "birthday.txt";
+;
     EditText edit;
     EditText editDie;
     Button btnGoTo;
@@ -110,50 +100,4 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-//    public void saveData(View view) {
-//        edit = findViewById(R.id.editBirthData);
-////        edit = findViewById(R.id.editDeadData);
-//        FileOutputStream fileOutput = null;
-//        try {
-//            String myTxt = edit.getText().toString();
-//            fileOutput = openFileOutput(FILE_NAME, MODE_PRIVATE); //MODE_APPEND
-//            fileOutput.write(myTxt.getBytes());
-//            Toast.makeText(MainActivity.this, "We are save \n your birthday", Toast.LENGTH_LONG).show();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            try {
-//                if (fileOutput != null)
-//                    fileOutput.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//
-//    public void openData(View view) {
-//        FileInputStream fileInput = null;
-//        textShow = findViewById(R.id.dataView);
-//        try {
-//            fileInput = openFileInput(FILE_NAME);
-//            byte[] bytes = new byte[1024];
-//            fileInput.read(bytes);
-//            String text = new String(bytes);
-//            textShow.setText(text);
-//            fileInput.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (fileInput != null)
-//                    fileInput.close();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
