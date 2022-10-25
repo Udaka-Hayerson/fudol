@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +38,7 @@ public class PohuyActivity extends Activity {
         btnBackReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentBackRegistr = new Intent( PohuyActivity.this , MainActivity.class);
+                Intent intentBackRegistr = new Intent(PohuyActivity.this, MainActivity.class);
                 startActivity(intentBackRegistr);
 
 
@@ -48,24 +49,46 @@ public class PohuyActivity extends Activity {
         btnStartWorkTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Timer().scheduleAtFixedRate(new TimerTask()
-                {
+                new Timer().scheduleAtFixedRate(new TimerTask() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         timerView.setText("" + (start++));
                         //Log.i("tag", "A Kiss every 5 seconds");
                     }
 
-                },0,1);
+                }, 0, 1);
                 //If the timer counts in seconds, the period must be equal to a thousand.
                 // adds a time counter in milliseconds
 
 
             }
         });
+    //timer variation
+        Timer myTimer;
+        myTimer = new Timer();
+
+        myTimer.schedule(new TimerTask() {
+            public void run() {
+                timerTick();
+            }
+        }, 0, 3000); // каждые 5 секунд
 
     }
+    private void timerTick () {
+            this.runOnUiThread(doTask);
+        }
+
+    private Runnable doTask = new Runnable() {
+        public void run() {
+            Toast toast = Toast.makeText(getApplicationContext(), "3 секунды!",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    };
+    //timer variation
+
+
+
 
 
 }
