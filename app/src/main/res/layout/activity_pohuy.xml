@@ -7,7 +7,21 @@
     tools:context=".PohuyActivity">
 
     <TextView
-        android:id="@+id/tvView"
+        android:id="@+id/work_sec_counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/seriy"
+        android:gravity="center"
+        android:text="@string/show"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_last_name"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/first_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -18,8 +32,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnBackReg"
@@ -41,9 +54,9 @@
         android:gravity="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvView" />
-
+        app:layout_constraintTop_toBottomOf="@+id/work_sec_counter" />
 
     <Chronometer
         android:id="@+id/chronometer"
@@ -88,5 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pause_chronometer" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
