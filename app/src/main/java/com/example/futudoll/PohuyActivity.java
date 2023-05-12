@@ -19,6 +19,8 @@ import java.util.TimerTask;
 
 public class PohuyActivity extends Activity {
 
+    // наліпив твкого шо х*й пойми шо тут
+
     public TextView first_last_name;
     public TextView timerView;
     public TextView work_sec_counter;
@@ -180,7 +182,8 @@ public class PohuyActivity extends Activity {
 //            }
 //        }
 //    }
-//
+
+
 //    public void openData(View view) {
 //        FileInputStream fileInput = null;
 //        textShow = findViewById(R.id.dataView);

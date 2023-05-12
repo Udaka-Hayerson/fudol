@@ -77,7 +77,7 @@ public class NoMainActivity extends AppCompatActivity
                     {
                         t_t_die.setText("" + (dead_d--));
                         t_a_birth.setText("" + (birth_b++));
-                        //Log.i("tag", "A Kiss every 5 seconds");
+                        Log.i("tag", "A Kiss every 5 seconds");
                     }
 
                 },0,1000);

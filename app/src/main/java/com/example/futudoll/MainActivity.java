@@ -26,7 +26,6 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-;
     EditText edit;
     EditText editDie;
     Button btnGoTo;
