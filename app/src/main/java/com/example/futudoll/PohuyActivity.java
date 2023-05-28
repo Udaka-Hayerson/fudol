@@ -59,11 +59,8 @@ public class PohuyActivity extends Activity {
             public void onClick(View v) {
                 Intent intentBackRegistr = new Intent(PohuyActivity.this, MainActivity.class);
                 startActivity(intentBackRegistr);
-
-
             }
         });
-
 
     }
 

@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnGoTo;
     private AdView mAdView;
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -46,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         btnGoTo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(MainActivity.this , NoMainActivity.class);
                 intent.putExtra("dead_day", editDie.getText().toString());
                 intent.putExtra("birth_day", edit.getText().toString());

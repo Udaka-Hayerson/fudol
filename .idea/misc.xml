@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.23148148148148148" />
+        <entry key="..\:/Users/Nickolas/AndroidStudioProjects/futudoll/app/src/main/res/layout-land/activity_error.xml" value="0.32760141093474426" />
+        <entry key="..\:/Users/Nickolas/AndroidStudioProjects/futudoll/app/src/main/res/layout-land/activity_f_ck_android.xml" value="0.32760141093474426" />
+        <entry key="..\:/Users/Nickolas/AndroidStudioProjects/futudoll/app/src/main/res/layout/activity_error.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/Nickolas/AndroidStudioProjects/futudoll/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Nickolas/AndroidStudioProjects/futudoll/app/src/main/res/layout/activity_no_main.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/Nickolas/AndroidStudioProjects/futudoll/app/src/main/res/layout/activity_pohuy.xml" value="0.1" />
@@ -28,7 +30,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
