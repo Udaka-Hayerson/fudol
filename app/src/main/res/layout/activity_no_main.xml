@@ -7,21 +7,58 @@
     android:background="@color/mainBgColor"
     tools:context=".NoMainActivity">
 
+    <Button
+        android:id="@+id/btnNextAct"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:background="#00BDAFAF"
+        android:onClick="btnNextMethod"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewNext"
+        app:layout_constraintTop_toBottomOf="@+id/textView666"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/btnStartCount"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#00BDAFAF"
+        android:text=""
+        android:onClick="btnStartTimerMethod"
+        app:layout_constraintBottom_toBottomOf="@+id/textView666"
+        app:layout_constraintEnd_toEndOf="@+id/textView666"
+        app:layout_constraintStart_toStartOf="@+id/textView666"
+        app:layout_constraintTop_toTopOf="@+id/textView666"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/btnBackAct"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="4dp"
+        android:background="#00BDAFAF"
+        android:text="@string/empty"
+        android:onClick="btnBackActMethod"
+        android:textColorHint="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView666"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView666"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/asideBgColor"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/main_you_nowhere"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
 
@@ -29,7 +66,7 @@
         android:id="@+id/imageView4"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +76,7 @@
         android:id="@+id/imageView10"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +85,7 @@
 
     <TextView
         android:id="@+id/time_to_die"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="7dp"
@@ -62,7 +99,7 @@
 
     <TextView
         android:id="@+id/time_a_birth"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -74,20 +111,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView666"
         tools:ignore="TextContrastCheck" />
 
-    <Button
-        android:id="@+id/btnBackAct"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="4dp"
-        android:background="#00BDAFAF"
-        android:text="@string/empty"
-        android:textColorHint="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView666"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="68dp"
@@ -96,16 +119,6 @@
         app:layout_constraintBottom_toTopOf="@+id/textView666"
         app:layout_constraintStart_toStartOf="@+id/btnBackAct"
         app:srcCompat="?attr/actionModeCloseDrawable" />
-
-
-    <Button
-        android:id="@+id/btnNextAct"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:background="#00BDAFAF"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewNext"
-        app:layout_constraintTop_toBottomOf="@+id/textView666"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewNext"
@@ -116,29 +129,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textView666"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-    <Button
-        android:id="@+id/btnStartCount"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#00BDAFAF"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="@+id/textView666"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView666"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--<ProgressBar-->
-<!--android:id="@+id/progressBar"-->
-<!--style="?android:attr/progressBarStyleHorizontal"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="1dp"-->
-<!--android:layout_marginTop="60dp"-->
-<!--app:layout_constraintTop_toTopOf="@+id/textView666" />-->
 
 
 

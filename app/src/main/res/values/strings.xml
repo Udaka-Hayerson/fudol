@@ -19,7 +19,8 @@
     <string name="back_reg">BACK</string>
     <string name="sec_after_born">0000000000</string>
     <string name="sec_to_die">0000000000</string>
-    <string name="main_you_nowhere">YOU:RE:HERE+]×[-YOU:RE:NOW</string>
+    <string name="main_phrase">YOU:RE:HERE+]×[-YOU:RE:NOW</string>
+    <string name="main_you_nowhere">start+]×[-timer</string>
     <string name="you_are_here">YOU:RE:HERE</string>
     <string name="its_you">   timer++]×[—diemer</string>
     <string name="you_are_now">YOU:RE:NOW</string>

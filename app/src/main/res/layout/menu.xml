@@ -10,11 +10,12 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="364dp"
+        android:background="@drawable/roundedbutton"
         android:bottomLeftRadius="180dip"
         android:bottomRightRadius="180dip"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="sans-serif-black"
         android:gravity="center_horizontal|center_vertical"
-        android:background="@drawable/roundedbutton"
+        android:onClick="onTimer"
         android:text="TIMER"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +29,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="57dp"
         android:text="sign/reg"
+        android:onClick="signRegistration"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,9 +40,22 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="57dp"
         android:text="die and born timer"
+        android:onClick="dieEndBornTimer"
         app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"></com.google.android.gms.ads.AdView>
 
-<!--    android:textColor="@color/white"-->
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,22 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ErrorActivity extends Activity implements View.OnClickListener {
-
-
-    EditText etFName;
-    EditText etLName;
-
+    EditText name;
+    EditText age;
     Button btnSubmit;
 
-
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_error);
-
-        etFName = (EditText) findViewById(R.id.etFName);
-        etLName = (EditText) findViewById(R.id.etLName);
+        name = (EditText) findViewById(R.id.etFName);
+        age = (EditText) findViewById(R.id.etLName);
 
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(this);
@@ -35,10 +29,11 @@ public class ErrorActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, PohuyActivity.class);
-        intent.putExtra("fname", etFName.getText().toString());
-        intent.putExtra("lname", etLName.getText().toString());
-        startActivity(intent);
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("name", name.getText().toString());
+        intent.putExtra("age", age.getText().toString());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

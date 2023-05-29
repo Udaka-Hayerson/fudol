@@ -4,46 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/asideBgColor"
     tools:context=".PohuyActivity">
+
+    <Button
+        android:id="@+id/start_chronometer"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundedbutton"
+        android:text="start"
+        android:textSize="50sp"
+        android:textAllCaps="true"
+        android:onClick="startChronometer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chronometer" />
+
+    <Button
+        android:id="@+id/pause_chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundedbutton"
+        android:text="pause"
+        android:textSize="20sp"
+        android:onClick="pauseChronometer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_chronometer" />
+
+    <Button
+        android:id="@+id/reset_chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundedbutton"
+        android:text="reset"
+        android:textSize="20sp"
+        android:onClick="resetChronometer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pause_chronometer" />
+    <Button
+        android:id="@+id/back_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_reg"
+        android:textSize="30sp"
+        android:onClick="backMenu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/work_sec_counter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="100dp"
         android:background="@color/seriy"
         android:gravity="center"
         android:text="@string/show"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_last_name"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/first_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:background="@color/seriy"
-        android:gravity="center"
-        android:text="@string/show"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnBackReg"
-        android:layout_width="0dp"
-        android:layout_height="163dp"
-        android:text="@string/back_reg"
-        android:textSize="120sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
     <TextView
         android:id="@+id/timerView"
@@ -64,43 +89,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textSize="30sp"
+        android:background="@color/seriy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerView" />
-
-    <Button
-        android:id="@+id/start_chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="start"
-        android:textAllCaps="true"
-        android:onClick="startChronometer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chronometer" />
-
-    <Button
-        android:id="@+id/pause_chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="pause"
-        android:onClick="pauseChronometer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_chronometer" />
-
-    <Button
-        android:id="@+id/reset_chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="reset"
-        android:onClick="resetChronometer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pause_chronometer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
