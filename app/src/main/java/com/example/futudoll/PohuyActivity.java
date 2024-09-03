@@ -22,7 +22,7 @@ public class PohuyActivity extends Activity {
     public TextView work_sec_counter;
     Timer myTimer;
     private Chronometer chronometer;
-    private long pause_off_set;
+    private long pause_off_set = 0;
     private boolean running;
     int start = 0;
     int count = 0;
@@ -39,13 +39,26 @@ public class PohuyActivity extends Activity {
 
         timerView = (TextView) findViewById(R.id.timerView);
         work_sec_counter = (TextView) findViewById(R.id.work_sec_counter);
-        myTimer = new Timer();
 
 //        Intent intent = getIntent();
 //        name = intent.getStringExtra("fname");
 //        age = intent.getStringExtra("lname");
 
         work_sec_counter.setText("" + count);
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long elapsedMillis = SystemClock.elapsedRealtime()
+                        - chronometer.getBase();
+
+//                if (elapsedMillis > 5000) {
+//                    String strElapsedMillis = "Пройшло більше 5 секунд";
+//                    Toast.makeText(getApplicationContext(),
+//                                    strElapsedMillis, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+            }
+        });
 
     }
     public void backMenu(View v) {
@@ -62,6 +75,7 @@ public class PohuyActivity extends Activity {
         }
     }
     public void startTimer(){
+        myTimer = new Timer();
         myTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -72,10 +86,10 @@ public class PohuyActivity extends Activity {
         }, 0, 1000);
     }
 
-    public void pauseChronometer(View view) {
+    public void pauseChronometer(View view) throws InterruptedException {
         if (running) {
-            chronometer.stop();
             pause_off_set = SystemClock.elapsedRealtime() - chronometer.getBase();
+            chronometer.stop();
             running = false;
             myTimer.cancel();
             count = count + start;

@@ -33,7 +33,8 @@ public class ErrorActivity extends Activity implements View.OnClickListener {
         intent.putExtra("name", name.getText().toString());
         intent.putExtra("age", age.getText().toString());
         setResult(RESULT_OK, intent);
-        finish();
+        startActivity(intent);
+        //finish();
     }
 
 }

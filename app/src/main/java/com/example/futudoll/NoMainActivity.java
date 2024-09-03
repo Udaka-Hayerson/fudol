@@ -34,10 +34,12 @@ public class NoMainActivity extends AppCompatActivity {
         t_t_die = (TextView) findViewById(R.id.time_to_die);
         t_a_birth = (TextView) findViewById(R.id.time_a_birth);
         Intent intent = getIntent();
-        age = Long.parseLong(intent.getStringExtra("age"));
-        year_to_sec = 365 * 60 * 60;
-        birth_b = age * year_to_sec;
-        dead_d = (100 - age) * year_to_sec;
+        dead_d = Long.parseLong(intent.getStringExtra("dead_day"));
+        birth_b = Long.parseLong(intent.getStringExtra("birth_day"));
+//        age = Long.parseLong(intent.getStringExtra("age"));
+//        year_to_sec = 365 * 60 * 60;
+//        birth_b = age * year_to_sec;
+//        dead_d = (100 - age) * year_to_sec;
 
     }
     public void btnBackActMethod(View v) {
