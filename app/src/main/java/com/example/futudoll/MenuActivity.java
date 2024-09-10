@@ -59,9 +59,10 @@ public class MenuActivity extends AppCompatActivity {
 
     public void dieEndBornTimer(View view) {
         Intent intentSignReg = new Intent(this, MainActivity.class);
-//        intentSignReg.putExtra("age", age);
         startActivity(intentSignReg);
     }
+
+
 
     public void addAd() {
         mAdView = findViewById(R.id.adView);
