@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="57dp"
-        android:text="sign/reg"
-        android:onClick="signRegistration"
+        android:text="sign in/up"
+        android:onClick="signInOrUp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

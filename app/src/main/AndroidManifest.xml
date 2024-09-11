@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Futudoll">
         <activity
-            android:name=".MenuActivity"
+            android:name=".AuthorizationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ErrorActivity"
+            android:name=".MenuActivity"
             android:exported="true" />
         <activity
             android:name=".PohuyActivity"

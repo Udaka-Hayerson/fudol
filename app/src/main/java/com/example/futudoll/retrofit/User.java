@@ -7,5 +7,5 @@ public class User {
     public String login;
     public String password;
     public String token;
-    public double student_salary;
+    public double expected_salary;
 }

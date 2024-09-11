@@ -3,17 +3,11 @@ package com.example.futudoll;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.example.futudoll.databinding.ActivityMainBinding;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -36,25 +30,26 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public void signRegistration(View view) {
-        Intent intentSignReg = new Intent(this, ErrorActivity.class);
-        startActivityForResult(intentSignReg, 111);
+    public void signInOrUp(View view) {
+        Intent intentSignReg = new Intent(this, AuthorizationActivity.class);
+        startActivity(intentSignReg);
+//        startActivityForResult(intentSignReg, 111);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == 111 && resultCode == RESULT_OK){
-            name = data.getStringExtra("name");
-            if(Integer.parseInt(data.getStringExtra("age")) > 0 && Integer.parseInt(data.getStringExtra("age")) < 100) {
-                age = Integer.parseInt(data.getStringExtra("age"));
-            } else {
-                age = 6;
-            }
-        } else {
-            name = "name";
-            age = 6;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if(requestCode == 111 && resultCode == RESULT_OK){
+//            name = data.getStringExtra("name");
+//            if(Integer.parseInt(data.getStringExtra("age")) > 0 && Integer.parseInt(data.getStringExtra("age")) < 100) {
+//                age = Integer.parseInt(data.getStringExtra("age"));
+//            } else {
+//                age = 6;
+//            }
+//        } else {
+//            name = "name";
+//            age = 6;
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
 
     public void dieEndBornTimer(View view) {
