@@ -3,17 +3,21 @@ package com.example.futudoll;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.futudoll.retrofit.User;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 
 public class MenuActivity extends AppCompatActivity {
+    final String LOG_TAG = "myLOgs";
     String name = "";
     int age = 1;
     public AdView mAdView;
@@ -21,6 +25,10 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+        Intent intent = getIntent();
+        String  user = intent.getStringExtra("user");
+        Log.e(LOG_TAG, user);
+
         addAd();
     }
 
