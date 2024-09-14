@@ -26,8 +26,8 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Intent intent = getIntent();
-        String  user = intent.getStringExtra("user");
-        Log.e(LOG_TAG, user);
+        User  user = (User) intent.getSerializableExtra("user");
+//        Log.e(LOG_TAG, user);
 
         addAd();
     }

@@ -12,6 +12,8 @@ import com.example.futudoll.retrofit.AuthRequest;
 import com.example.futudoll.retrofit.MainApi;
 import com.example.futudoll.retrofit.User;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,22 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AuthorizationActivity extends Activity implements View.OnClickListener {
 
     final String LOG_TAG = "myLOgs";
-
-//    request
-//    {
-//        "nickname": "",
-//        "birthday": "",
-//        "login": "",
-//        "password": "",
-//        "expected_salary": 0.0
-//    }
-
-
-//    Response
-//{
-//    "id": 0,
-//    "token": ""
-//}
 
     EditText nickname;
     EditText birthday;
@@ -61,9 +47,15 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
         btnSubmit = (Button) findViewById(R.id.sign_up);
         btnSubmit.setOnClickListener(this);
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://3f3jhgmm-8080.euw.devtunnels.ms/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
                 .build();
         mainApi = retrofit.create(MainApi.class);
 
@@ -91,8 +83,12 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                         // Handle successful response
                         User user = response.body();
                         Intent intent = new Intent(AuthorizationActivity.this, MenuActivity.class);
-                        intent.putExtra("user", user.toString());
-                        Log.e(LOG_TAG, user.toString());
+                        intent.putExtra("user", user);
+                        Log.e(LOG_TAG, String.valueOf(response.body()));
+                        Log.e(LOG_TAG, String.valueOf(response.raw()));
+                        Log.e(LOG_TAG,  user.getId() + " ; " + user.getNickname() + " ; " + user.getBirthday()
+                                + " ; " + user.getLogin() + " ; " + user.getPassword()
+                                + " ; " + user.getToken() + " ; " + user.getExpected_salary());
 
                         startActivity(intent);
                     } else {
@@ -113,17 +109,3 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
     }
 }
 
-//        @Override
-//        public void onClick (View v){
-//            double salary = Double.parseDouble(expected_salary.getText().toString());
-//            AuthRequest request = new AuthRequest(
-//                    nickname.getText().toString(),
-//                    birthday.getText().toString(),
-//                    login.getText().toString(),
-//                    password.getText().toString(),
-//                    salary
-//            );
-//            User user = mainApi.signUp(request);
-//            Intent intent = new Intent(this, MenuActivity.class);
-//            startActivity(intent);
-//        }
