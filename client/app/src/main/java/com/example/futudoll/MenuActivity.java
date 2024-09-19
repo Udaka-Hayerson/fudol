@@ -18,7 +18,7 @@ import com.google.android.gms.ads.LoadAdError;
 
 public class MenuActivity extends AppCompatActivity {
     final String LOG_TAG = "myLOgs";
-    String name = "";
+    String token = "";
     int age = 1;
     public AdView mAdView;
     @Override
@@ -26,7 +26,8 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Intent intent = getIntent();
-        User  user = (User) intent.getSerializableExtra("user");
+        token = intent.getStringExtra("token");
+//        User  user = (User) intent.getSerializableExtra("user");
 //        Log.e(LOG_TAG, user);
 
         addAd();

@@ -83,7 +83,8 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                         // Handle successful response
                         User user = response.body();
                         Intent intent = new Intent(AuthorizationActivity.this, MenuActivity.class);
-                        intent.putExtra("user", user);
+//                        intent.putExtra("user", user);
+                        intent.putExtra("token", user.getToken());
                         Log.e(LOG_TAG, String.valueOf(response.body()));
                         Log.e(LOG_TAG, String.valueOf(response.raw()));
                         Log.e(LOG_TAG,  user.getId() + " ; " + user.getNickname() + " ; " + user.getBirthday()
