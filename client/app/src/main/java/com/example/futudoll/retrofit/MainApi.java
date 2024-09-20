@@ -15,5 +15,8 @@ public interface MainApi {
     @POST(".")
     Call<User> signUp(@Body AuthRequest authRequest);
 
+    @POST(".")
+    Call<User> getUserByToken(@Body String token);
+
 
 }
