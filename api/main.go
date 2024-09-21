@@ -1,51 +1,56 @@
 package main
 
 import (
-	"encoding/json"
+	"context"
 	"fmt"
-	"io"
-	"net/http"
+	"fudol_api/handlers"
+	"fudol_api/helpers"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type User struct {
-	Id              int
-	Nickname        string
-	Birthday        string
-	Login           string
-	Password        string
-	Token           string
-	Expected_salary float64
-}
-
 func main() {
-	http.HandleFunc("/", echo)
-	http.ListenAndServe(":8080", nil)
-}
+	e := echo.New()
+	e.Logger.SetLevel(log.ERROR)
+	e.Validator = &helpers.CustomValidator{Validator: validator.New()}
 
-func echo(res http.ResponseWriter, req *http.Request) {
-	fmt.Println(res, req)
-
-	b, err := io.ReadAll(req.Body)
+	credential := options.Credential{
+		Username: "root",
+		Password: "example",
+	}
+	clientOptions := options.Client().SetHosts([]string{"localhost:27017"}).SetAuth(credential)
+	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {
-		fmt.Printf("%v", err)
+		panic(fmt.Sprintf("Err during connection to DB: %v", err))
 	}
 
-	fmt.Printf("%s", b)
+	defer func() {
+		if err = client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
 
-	jData, _ := json.Marshal(User{
-		Id:              234324,
-		Nickname:        "Дубов",
-		Birthday:        "давно",
-		Login:           "дай пилу",
-		Password:        "пiська. ха-ха",
-		Token:           "make Pikula great again",
-		Expected_salary: 666.6,
-	})
+	h := handlers.Handler{
+		Store: handlers.Store{
+			DB:    client,
+			Users: client.Database("client").Collection("users"),
+		},
+	}
 
-	res.WriteHeader(201)
-	res.Header().Set("Content-Type", "application/json")
-	res.Write(jData)
+	h.Store.Users.Indexes().CreateOne(
+		context.TODO(),
+		mongo.IndexModel{
+			Keys:    bson.D{{Key: "login", Value: -1}, {Key: "nickname", Value: -1}},
+			Options: options.Index().SetUnique(true),
+		},
+	)
 
-	fmt.Println("end")
+	e.POST("/signup", h.SignUp)
+	e.Logger.Fatal(e.Start(":8080"))
 }
