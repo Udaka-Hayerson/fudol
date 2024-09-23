@@ -1,10 +1,10 @@
 package models
 
 type User struct {
-	Id              int
-	Nickname        int     `bson:"nickname,omitempty"`
-	Birthday        string  `bson:"birthday,omitempty"`
-	Login           string  `bson:"login,omitempty"`
-	Password        string  `bson:"password,omitempty"`
-	Expected_salary float64 `bson:"expectedSalary,omitempty"`
+	Id              int     `json:"id"`
+	Nickname        string  `bson:"nickname,omitempty" json:"nickname"`
+	Birthday        string  `bson:"birthday,omitempty" json:"birthday"`
+	Login           string  `bson:"login,omitempty" json:"login"`
+	Password        string  `bson:"password,omitempty" json:"password"`
+	Expected_salary float64 `bson:"expectedSalary,omitempty" json:"expectedSalary"`
 }
