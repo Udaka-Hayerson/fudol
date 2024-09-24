@@ -1,7 +1,5 @@
 package dto
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
-
 type (
 	UserCreateDTO struct {
 		Nickname        string  `json:"nickname" validate:"required"`
@@ -11,7 +9,6 @@ type (
 		Expected_salary float64 `json:"expected_salary" validate:"required"`
 	}
 	UserCreatedDTO struct {
-		Id    primitive.ObjectID
 		Token string
 	}
 )
