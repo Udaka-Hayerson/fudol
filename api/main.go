@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"fudol_api/handlers"
 	"fudol_api/helpers"
+	"fudol_api/middlewares"
 	"os"
 
 	"github.com/go-playground/validator/v10"
@@ -63,5 +64,7 @@ func main() {
 
 	e.POST("/signup", h.SignUp)
 	e.GET("/userlist", h.GetUserList)
+	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())
+
 	e.Logger.Fatal(e.Start(":8080"))
 }
