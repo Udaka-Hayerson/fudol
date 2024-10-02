@@ -6,6 +6,7 @@ import (
 	"fudol_api/handlers"
 	"fudol_api/helpers"
 	"fudol_api/middlewares"
+	"net/http"
 	"os"
 
 	"github.com/go-playground/validator/v10"
@@ -34,7 +35,7 @@ func main() {
 		Username: os.Getenv("DB_USER"),
 		Password: os.Getenv("DB_PASSWORD"),
 	}
-	clientOptions := options.Client().SetHosts([]string{"localhost:27017"}).SetAuth(credential)
+	clientOptions := options.Client().SetHosts([]string{os.Getenv("DB_HOST")}).SetAuth(credential)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {
@@ -65,6 +66,9 @@ func main() {
 	e.POST("/signup", h.SignUp)
 	e.GET("/userlist", h.GetUserList)
 	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Welcome to Fudol API")
+	})
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
