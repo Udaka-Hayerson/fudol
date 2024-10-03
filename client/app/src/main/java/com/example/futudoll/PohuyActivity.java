@@ -24,6 +24,7 @@ public class PohuyActivity extends Activity {
     private Chronometer chronometer;
     private long pause_off_set = 0;
     private boolean running;
+    private double salary;
     int start = 0;
     int count = 0;
 //    String name;
@@ -40,11 +41,14 @@ public class PohuyActivity extends Activity {
         timerView = (TextView) findViewById(R.id.timerView);
         work_sec_counter = (TextView) findViewById(R.id.work_sec_counter);
 
-//        Intent intent = getIntent();
+        Intent intent = getIntent();
+        salary = intent.getDoubleExtra("salary", 500.0);
+        salary = salary / 21 / 8 / 60 / 60;
+
 //        name = intent.getStringExtra("fname");
 //        age = intent.getStringExtra("lname");
 
-        work_sec_counter.setText("" + count);
+        work_sec_counter.setText("" + count * salary);
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
@@ -94,7 +98,7 @@ public class PohuyActivity extends Activity {
             myTimer.cancel();
             count = count + start;
             start = 0;
-            work_sec_counter.setText("" + count);
+            work_sec_counter.setText("" + count * salary);
             //saveData(work_sec_counter); потім змінити
         } else {
             return;
@@ -104,7 +108,7 @@ public class PohuyActivity extends Activity {
     public void resetChronometer(View view) {
         count = count + start;
         start = 0;
-        work_sec_counter.setText("" + count);
+        work_sec_counter.setText("" + count * salary);
         chronometer.setBase(SystemClock.elapsedRealtime());
         pause_off_set = 0;
         //saveData(work_sec_counter); потім змінити

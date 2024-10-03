@@ -58,14 +58,14 @@
 
     <TextView
         android:id="@+id/work_sec_counter"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:background="@color/seriy"
         android:gravity="center"
         android:text="@string/show"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/futudol_coin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -93,6 +93,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerView" />
+
+    <TextView
+        android:id="@+id/futudol_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@color/seriy"
+        android:text="-]×[+"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/work_sec_counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/work_sec_counter"
+        app:layout_constraintTop_toTopOf="@+id/work_sec_counter" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
