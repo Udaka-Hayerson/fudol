@@ -12,6 +12,15 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+// OpenAPi
+//
+//	@Tags		User
+//	@Summary	get user data
+//	@Produce	json
+//	@Security	ApiKeyAuth
+//	@Success	200	{object}	models.User
+//	@Header		200	{string}	Token	"Bearer"
+//	@Router		/user [get]
 func (h *Handler) GetUserData(c echo.Context) error {
 	token, _ := c.Get(constants.TokenData).(*jwt.Token)
 	claims, _ := token.Claims.(*helpers.JwtCustomClaims)

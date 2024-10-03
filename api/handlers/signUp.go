@@ -16,13 +16,23 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// OpenAPi
+//
+//	@Tags		Auth
+//	@Summary	sign up
+//	@Accept		json
+//	@Produce	json
+//	@Success	201	{object}	dto.UserCreatedDTO
+//	@Failure	400	{object}	error	"invalid body fields."
+//	@Failure	406	{object}	error	"nickname or login is existed."
+//	@Router		/sigup [post]
 func (h *Handler) SignUp(c echo.Context) error {
 	var u dto.UserCreateDTO
 	err := c.Bind(&u)
 
 	if err != nil {
 		fmt.Println(err)
-		return c.String(http.StatusBadRequest, "Bad request.")
+		return c.String(http.StatusBadRequest, "Invalid body fields")
 	}
 
 	if err = c.Validate(u); err != nil {
@@ -30,11 +40,11 @@ func (h *Handler) SignUp(c echo.Context) error {
 	}
 
 	if a := h.Store.Users.FindOne(context.TODO(), bson.M{"nickname": u.Nickname}); a.Err() != mongo.ErrNoDocuments {
-		return c.String(http.StatusBadRequest, "nickname is already exsited.")
+		return c.String(http.StatusNotAcceptable, "nickname is already exsited.")
 	}
 
 	if a := h.Store.Users.FindOne(context.TODO(), bson.M{"login": u.Login}); a.Err() != mongo.ErrNoDocuments {
-		return c.String(http.StatusBadRequest, "login is already exsited.")
+		return c.String(http.StatusNotAcceptable, "login is already exsited.")
 	}
 
 	r, err := h.Store.Users.InsertOne(context.TODO(), u)

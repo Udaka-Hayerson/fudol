@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	_ "fudol_api/docs"
 	"fudol_api/handlers"
 	"fudol_api/helpers"
 	"fudol_api/middlewares"
@@ -14,11 +15,30 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// @title						Fudol OpenAPI doc
+// @version					0.0.1
+// @description				Work hard, play hard
+// @termsOfService				http://swagger.io/terms/
+//
+// @contact.name				Backend developer
+// @contact.url				https://t.me/bringmetheaugust
+// @contact.email				nahuy@kaniv.com
+//
+// @license.name				Apache 2.0
+// @license.url				http://www.apache.org/licenses/LICENSE-2.0.html
+//
+// @host						http://localhost:8080
+// @BasePath					/
+//
+// @securityDefinitions.apikey	Bearer
+// @in							header
+// @name						token
 func main() {
 	e := echo.New()
 	e.Logger.SetLevel(log.ERROR)
@@ -63,6 +83,7 @@ func main() {
 		},
 	)
 
+	e.GET("/docs/*", echoSwagger.WrapHandler)
 	e.POST("/signup", h.SignUp)
 	e.GET("/userlist", h.GetUserList)
 	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())

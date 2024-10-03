@@ -9,6 +9,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+// OpenAPi
+//
+//	@Tags		Other
+//	@Summary	get all users
+//	@Produce	json
+//	@Success	200	{object}	[]models.User
+//	@Router		/userlist [get]
 func (h *Handler) GetUserList(c echo.Context) error {
 	cur, err := h.Store.Users.Find(context.TODO(), bson.D{})
 
