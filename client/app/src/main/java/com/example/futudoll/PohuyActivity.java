@@ -27,8 +27,6 @@ public class PohuyActivity extends Activity {
     private double salary;
     int start = 0;
     int count = 0;
-//    String name;
-//    String age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +42,6 @@ public class PohuyActivity extends Activity {
         Intent intent = getIntent();
         salary = intent.getDoubleExtra("salary", 500.0);
         salary = salary / 21 / 8 / 60 / 60;
-
-//        name = intent.getStringExtra("fname");
-//        age = intent.getStringExtra("lname");
 
         work_sec_counter.setText("" + count * salary);
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {

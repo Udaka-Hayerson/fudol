@@ -45,7 +45,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private User getUser(String token) throws NumberFormatException {
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://3f3jhgmm-8080.euw.devtunnels.ms/")
+                .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mainApi = retrofit.create(MainApi.class);

@@ -12,11 +12,11 @@ public interface MainApi {
     @GET("users")
     Call<List<User>> getUsers();
 
-    @POST(".")
-    Call<User> signUp(@Body AuthRequest authRequest);
+    @POST("/signup")
+    Call<UserResponse> signUp(@Body AuthRequest authRequest);
 
-    @POST(".")
-    Call<User> getUserByToken(@Body String token);
+    @GET("/user")
+    Call<User> getUserByToken(String token);
 
 
 }
