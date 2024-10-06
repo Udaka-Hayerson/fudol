@@ -1,4 +1,17 @@
 services:
+  admin:
+    container_name: fudol_web_client
+    restart: unless-stopped
+    build:
+      context: ./web_client
+      dockerfile: Dockerfile
+    ports:
+      - 8081:5173
+    volumes:
+      - ./web_client:/app
+    depends_on:
+      - api
+
   api:
     container_name: fudol_api
     restart: unless-stopped

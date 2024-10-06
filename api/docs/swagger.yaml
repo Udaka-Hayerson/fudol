@@ -72,20 +72,6 @@ paths:
       summary: get user data
       tags:
       - User
-  /userlist:
-    get:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.User'
-            type: array
-      summary: get all users
-      tags:
-      - Other
 securityDefinitions:
   Bearer:
     in: header

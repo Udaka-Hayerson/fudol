@@ -6,6 +6,7 @@
 
 * [http://localhost:8080](http://localhost:8080) api open port
 * [http://localhost:8080/docs/](http://localhost:8080/docs/) api open port
+* [http://localhost:8081](http://localhost:8081/) admin panel
 
 ## Development
 

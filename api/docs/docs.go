@@ -83,28 +83,6 @@ const docTemplate = `{
                     }
                 }
             }
-        },
-        "/userlist": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Other"
-                ],
-                "summary": "get all users",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.User"
-                            }
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {

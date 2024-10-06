@@ -6,5 +6,5 @@ type User struct {
 	Birthday        string  `bson:"birthday,omitempty" json:"birthday"`
 	Login           string  `bson:"login,omitempty" json:"login"`
 	Password        string  `bson:"password,omitempty" json:"password"`
-	Expected_salary float64 `bson:"expectedSalary,omitempty" json:"expectedSalary"`
+	Expected_salary float64 `bson:"expected_salary,omitempty" json:"expectedSalary"`
 }
