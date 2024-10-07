@@ -5,8 +5,8 @@ import { USER_LIST } from "../constants/queries";
 export default function useUserList() {
     return useQuery({
         queryKey: [USER_LIST],
-        queryFn: async function getUserList() {
-            const b = await fetch("http://localhost:8080/userlist")
+        queryFn: async function() {
+            const b = await fetch("http://localhost:8080/users")
             return await b.json()
         },
     })

@@ -85,7 +85,8 @@ func main() {
 
 	e.GET("/docs/*", echoSwagger.WrapHandler)
 	e.POST("/signup", h.SignUp)
-	e.GET("/userlist", h.GetUserList)
+	e.GET("/users", h.GetUserList)
+	e.DELETE("/users", h.RemoveUsers)
 	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Welcome to Fudol API")

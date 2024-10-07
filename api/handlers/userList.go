@@ -16,7 +16,7 @@ func (h *Handler) GetUserList(c echo.Context) error {
 		panic(err)
 	}
 
-	var users []models.User
+	users := make([]models.User, 0)
 
 	if err := cur.All(context.TODO(), &users); err != nil {
 		c.Error(err)

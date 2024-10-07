@@ -3,7 +3,6 @@ package handlers
 import (
 	"context"
 	"fmt"
-	dto "fudol_api/DTO"
 	"fudol_api/helpers"
 	"net/http"
 	"os"
@@ -16,26 +15,38 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+type (
+	UserCreateDTO struct {
+		Nickname        string  `json:"nickname" validate:"required"`
+		Birthday        string  `json:"birthday"`
+		Login           string  `json:"login" validate:"required"`
+		Password        string  `json:"password" validate:"required"`
+		Expected_salary float64 `json:"expected_salary" validate:"required"`
+	}
+	UserCreatedDTO struct {
+		Token string
+	}
+)
+
 // OpenAPi
 //
 //	@Tags		Auth
 //	@Summary	sign up
 //	@Accept		json
 //	@Produce	json
-//	@Success	201	{object}	dto.UserCreatedDTO
+//	@Success	201	{object}	UserCreatedDTO
 //	@Failure	400	{object}	error	"invalid body fields."
 //	@Failure	406	{object}	error	"nickname or login is existed."
 //	@Router		/sigup [post]
 func (h *Handler) SignUp(c echo.Context) error {
-	var u dto.UserCreateDTO
-	err := c.Bind(&u)
+	var u UserCreateDTO
 
-	if err != nil {
+	if err := c.Bind(&u); err != nil {
 		fmt.Println(err)
 		return c.String(http.StatusBadRequest, "Invalid body fields")
 	}
 
-	if err = c.Validate(u); err != nil {
+	if err := c.Validate(u); err != nil {
 		return err
 	}
 
@@ -68,7 +79,7 @@ func (h *Handler) SignUp(c echo.Context) error {
 		return fmt.Errorf("err during creating token %v", err)
 	}
 
-	res := dto.UserCreatedDTO{Token: t}
+	res := UserCreatedDTO{Token: t}
 
 	return c.JSON(http.StatusCreated, res)
 }
