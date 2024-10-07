@@ -28,12 +28,12 @@ const MainLayout = () => {
                         </ListItemIcon>
                         <ListItemText primary="users" />
                     </ListItemButton>
-                    <ListItemButton selected={pathname === "/fav"} onClick={() => handleChange("fav")}>
+                    {/* <ListItemButton selected={pathname === "/fav"} onClick={() => handleChange("fav")}>
                         <ListItemIcon>
                             <FavoriteIcon />
                         </ListItemIcon>
                         <ListItemText primary="Drafts" />
-                    </ListItemButton>
+                    </ListItemButton> */}
                 </List>
             </div>
             <main className="p-2 w-full">
