@@ -82,14 +82,15 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                 call.enqueue(new Callback<UserResponse>() {
                     @Override
                     public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                        Log.e(LOG_TAG, response.body().toString());
                         if (response.isSuccessful()) {
                             UserResponse userResponse = response.body();
                             Intent intent = new Intent(AuthorizationActivity.this, MenuActivity.class);
                             intent.putExtra("token", userResponse.getToken());
-//                        Log.e(LOG_TAG, String.valueOf(response.body()));
-
                             startActivity(intent);
+
+                            Log.e(LOG_TAG, response.body().getToken());
+                            Log.e(LOG_TAG, String.valueOf(response.body()));
+
                         } else {
                             // Handle unsuccessful response
                             Log.e(LOG_TAG, "Response error: " + response.message());

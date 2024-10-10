@@ -17,6 +17,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,13 +26,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MenuActivity extends AppCompatActivity {
-    final String LOG_TAG = "myLOgs";
+    final String LOG_TAG = "myLogs";
     String token = "";
     int age = 1;
     public AdView mAdView;
     Retrofit retrofit;
     MainApi mainApi;
-    User response_user;
     User user;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,23 +39,30 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.menu);
         Intent intent = getIntent();
         token = intent.getStringExtra("token");
-        user = getUser(token);
-//        User  user = (User) intent.getSerializableExtra("user");
+        getUser();
         addAd();
     }
 
-    private User getUser(String token) throws NumberFormatException {
+    public void getUser() throws NumberFormatException {
+        Log.e(LOG_TAG, " menu token " + token);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
                 .build();
         mainApi = retrofit.create(MainApi.class);
-        Call<User> call = mainApi.getUserByToken(token);
+        Call<User> call = mainApi.getUserByToken("Bearer " + token);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response){
                 if(response.isSuccessful()){
-                    response_user = response.body();
+                    Log.e(LOG_TAG, " menu user " + response.body());
+                    user = response.body();
                 }
                 else {
                     // Handle unsuccessful response
@@ -67,7 +75,6 @@ public class MenuActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, "API call failed: " + t.getMessage());
             }
         });
-        return response_user;
     }
 
     public void onTimer(View view) {
