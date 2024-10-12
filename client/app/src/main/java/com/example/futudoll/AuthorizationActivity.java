@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,11 +29,12 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
     final String LOG_TAG = "myLogs";
 
     EditText nickname;
-    EditText birthday;
     EditText login;
     EditText password;
     EditText expected_salary;
     Button btnSubmit;
+    DatePicker datePicker;
+    String birthday;
 
     MainApi mainApi;
     Retrofit retrofit;
@@ -42,7 +44,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
         nickname = (EditText) findViewById(R.id.et_nickname);
-        birthday = (EditText) findViewById(R.id.et_birthday);
+
         login = (EditText) findViewById(R.id.et_login);
         password = (EditText) findViewById(R.id.et_password);
         expected_salary = (EditText) findViewById(R.id.et_expected_salary);
@@ -62,6 +64,17 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                 .build();
         mainApi = retrofit.create(MainApi.class);
 
+        DatePicker datePicker = this.findViewById(R.id.datePicker);
+        datePicker.init(2000, 02, 01, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                // Отсчет месяцев начинается с нуля. Для отображения добавляем 1.
+                birthday =  view.getYear() + "/" +
+                        (view.getMonth() + 1) + "/" + view.getDayOfMonth();
+            }
+        });
+
 
     }
 
@@ -72,7 +85,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                 double salary = Double.parseDouble(expected_salary.getText().toString());
                 AuthRequest request = new AuthRequest(
                         nickname.getText().toString(),
-                        birthday.getText().toString(),
+                        birthday,
                         login.getText().toString(),
                         password.getText().toString(),
                         salary
@@ -84,6 +97,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                     public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                         if (response.isSuccessful()) {
                             UserResponse userResponse = response.body();
+                            // userResponse.getToken()
                             Intent intent = new Intent(AuthorizationActivity.this, MenuActivity.class);
                             intent.putExtra("token", userResponse.getToken());
                             startActivity(intent);
@@ -114,7 +128,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
             Toast.makeText(this, "Please enter your nickname.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (birthday.getText().toString().trim().isEmpty()) {
+        if (birthday.trim().isEmpty()) {
             Toast.makeText(this, "Please enter your birthday.", Toast.LENGTH_SHORT).show();
             return false;
         }

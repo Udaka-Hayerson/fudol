@@ -18,10 +18,16 @@ import java.util.TimerTask;
 
 
 public class NoMainActivity extends AppCompatActivity {
-    public long dead_d;
-    public long birth_b;
+    public long seconds_to_dead;
+    public long seconds_aster_birth;
     public TextView t_t_die;
     public TextView t_a_birth;
+    long year_birth;
+    long month_birth;
+    long day_birth;
+    long year_dead;
+    long month_dead;
+    long day_dead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,17 +43,22 @@ public class NoMainActivity extends AppCompatActivity {
     }
 
     private void setBirthdayAndDeathdayCounts(Intent intent) {
-        String rawDate = intent.getStringExtra("birthday"); //  YYYY/MM/DD
-        long year_b = 2024 - (Long.parseLong(rawDate.substring(0, 4))) * 365 * 24 * 60 * 60;
-        long month_b = Long.parseLong(rawDate.substring(5, 7)) * 30 * 24 * 60 * 60;
-        long day_b = Long.parseLong(rawDate.substring(8)) * 24 * 60 * 60;
-
-        long year_d = (100 - (2024 - (Long.parseLong(rawDate.substring(0, 4))))) * 365 * 24 * 60 * 60;
-        long month_d = (12 - (Long.parseLong(rawDate.substring(5, 7)))) * 30 * 24 * 60 * 60;
-        long day_d = (30 - (Long.parseLong(rawDate.substring(8)))) * 24 * 60 * 60;
-
-        dead_d = year_b + month_b + day_b;
-        birth_b = year_d + month_d + day_d;
+        String rawDate = intent.getStringExtra("birthday"); //  YYYY/MM/DD // 0123/56/89 // 0123/5/7
+        year_birth = 2024 - (Long.parseLong(rawDate.substring(0, 4))) * 365 * 24 * 60 * 60;
+        year_dead = (100 - (2024 - (Long.parseLong(rawDate.substring(0, 4))))) * 365 * 24 * 60 * 60;
+        if(rawDate.charAt(7) == '/'){
+            month_birth = Long.parseLong(rawDate.substring(5, 7)) * 30 * 24 * 60 * 60;
+            month_dead = (12 - (Long.parseLong(rawDate.substring(5, 7)))) * 30 * 24 * 60 * 60;
+            day_birth = Long.parseLong(rawDate.substring(8)) * 24 * 60 * 60;
+            day_dead = (30 - (Long.parseLong(rawDate.substring(8)))) * 24 * 60 * 60;
+        } else {
+            month_birth = Long.parseLong(rawDate.substring(5, 6)) * 30 * 24 * 60 * 60;
+            month_dead = (12 - (Long.parseLong(rawDate.substring(5, 6)))) * 30 * 24 * 60 * 60;
+            day_birth = Long.parseLong(rawDate.substring(7)) * 24 * 60 * 60;
+            day_dead = (30 - (Long.parseLong(rawDate.substring(7)))) * 24 * 60 * 60;
+        }
+        seconds_to_dead = year_birth + month_birth + day_birth;
+        seconds_aster_birth = year_dead + month_dead + day_dead;
     }
 
     public void btnBackActMethod(View v) {
@@ -66,8 +77,8 @@ public class NoMainActivity extends AppCompatActivity {
             @Override
             public void run()
             {
-                t_t_die.setText("" + (dead_d--));
-                t_a_birth.setText("" + (birth_b++));
+                t_t_die.setText("" + (seconds_to_dead--));
+                t_a_birth.setText("" + (seconds_aster_birth++));
             }
 
         },0,1000);
