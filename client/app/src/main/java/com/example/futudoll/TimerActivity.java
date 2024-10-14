@@ -5,19 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class PohuyActivity extends Activity {
+public class TimerActivity extends Activity {
     public TextView timerView;
     public TextView work_sec_counter;
     Timer myTimer;
@@ -31,7 +26,7 @@ public class PohuyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pohuy);
+        setContentView(R.layout.activity_timer);
 
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.setFormat("Time: %s");
@@ -61,7 +56,7 @@ public class PohuyActivity extends Activity {
 
     }
     public void backMenu(View v) {
-        Intent intentBackMenu = new Intent(PohuyActivity.this, MenuActivity.class);
+        Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
         startActivity(intentBackMenu);
     }
 

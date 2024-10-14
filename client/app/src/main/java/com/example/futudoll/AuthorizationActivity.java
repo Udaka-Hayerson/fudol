@@ -108,6 +108,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                         } else {
                             // Handle unsuccessful response
                             Log.e(LOG_TAG, "Response error: " + response.message());
+                            Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -115,6 +116,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                     public void onFailure(Call<UserResponse> call, Throwable t) {
                         // Handle failure
                         Log.e(LOG_TAG, "API call failed: " + t.getMessage());
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (NumberFormatException e) {

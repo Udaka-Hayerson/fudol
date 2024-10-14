@@ -23,7 +23,7 @@
             android:name=".MenuActivity"
             android:exported="true" />
         <activity
-            android:name=".PohuyActivity"
+            android:name=".TimerActivity"
             android:exported="true" />
         <activity
             android:name=".NoMainActivity"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,18 +68,21 @@ public class MenuActivity extends AppCompatActivity {
                 else {
                     // Handle unsuccessful response
                     Log.e(LOG_TAG, "Response error: " + response.message());
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(LOG_TAG, "API call failed: " + t.getMessage());
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void onTimer(View view) {
-        Intent intentTimer = new Intent(this, PohuyActivity.class);
+        Intent intentTimer = new Intent(this, TimerActivity.class);
         intentTimer.putExtra("salary", user.getExpected_salary());
         startActivity(intentTimer);
     }
