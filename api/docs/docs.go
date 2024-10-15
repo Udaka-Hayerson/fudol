@@ -24,7 +24,48 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/sigup": {
+        "/signin": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "sign in",
+                "parameters": [
+                    {
+                        "description": "body request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.UserSigninDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.UserSigninSuccessDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid body fields.",
+                        "schema": {}
+                    },
+                    "406": {
+                        "description": "Invalid credentials.",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/signup": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -36,11 +77,22 @@ const docTemplate = `{
                     "Auth"
                 ],
                 "summary": "sign up",
+                "parameters": [
+                    {
+                        "description": "body request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.UserCreateDTO"
+                        }
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.UserCreatedDTO"
+                            "$ref": "#/definitions/handlers.UserCreatedDTO"
                         }
                     },
                     "400": {
@@ -86,7 +138,56 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "dto.UserCreatedDTO": {
+        "handlers.UserCreateDTO": {
+            "type": "object",
+            "required": [
+                "expected_salary",
+                "login",
+                "nickname",
+                "password"
+            ],
+            "properties": {
+                "birthday": {
+                    "type": "string"
+                },
+                "expected_salary": {
+                    "type": "number"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.UserCreatedDTO": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.UserSigninDTO": {
+            "type": "object",
+            "required": [
+                "login",
+                "password"
+            ],
+            "properties": {
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.UserSigninSuccessDTO": {
             "type": "object",
             "properties": {
                 "token": {

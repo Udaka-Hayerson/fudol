@@ -1,6 +1,39 @@
 basePath: /
 definitions:
-  dto.UserCreatedDTO:
+  handlers.UserCreateDTO:
+    properties:
+      birthday:
+        type: string
+      expected_salary:
+        type: number
+      login:
+        type: string
+      nickname:
+        type: string
+      password:
+        type: string
+    required:
+    - expected_salary
+    - login
+    - nickname
+    - password
+    type: object
+  handlers.UserCreatedDTO:
+    properties:
+      token:
+        type: string
+    type: object
+  handlers.UserSigninDTO:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    required:
+    - login
+    - password
+    type: object
+  handlers.UserSigninSuccessDTO:
     properties:
       token:
         type: string
@@ -34,17 +67,51 @@ info:
   title: Fudol OpenAPI doc
   version: 0.0.1
 paths:
-  /sigup:
+  /signin:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: body request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UserSigninDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.UserSigninSuccessDTO'
+        "400":
+          description: invalid body fields.
+          schema: {}
+        "406":
+          description: Invalid credentials.
+          schema: {}
+      summary: sign in
+      tags:
+      - Auth
+  /signup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: body request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UserCreateDTO'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/dto.UserCreatedDTO'
+            $ref: '#/definitions/handlers.UserCreatedDTO'
         "400":
           description: invalid body fields.
           schema: {}

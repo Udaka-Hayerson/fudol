@@ -5,10 +5,7 @@ import (
 	"fmt"
 	"fudol_api/helpers"
 	"net/http"
-	"os"
-	"time"
 
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -24,7 +21,7 @@ type (
 		Expected_salary float64 `json:"expected_salary" validate:"required"`
 	}
 	UserCreatedDTO struct {
-		Token string
+		Token string `json:"token"`
 	}
 )
 
@@ -34,10 +31,11 @@ type (
 //	@Summary	sign up
 //	@Accept		json
 //	@Produce	json
-//	@Success	201	{object}	UserCreatedDTO
-//	@Failure	400	{object}	error	"invalid body fields."
-//	@Failure	406	{object}	error	"nickname or login is existed."
-//	@Router		/sigup [post]
+//	@Param		request	body		UserCreateDTO	true	"body request"
+//	@Success	201		{object}	UserCreatedDTO
+//	@Failure	400		{object}	error	"invalid body fields."
+//	@Failure	406		{object}	error	"nickname or login is existed."
+//	@Router		/signup [post]
 func (h *Handler) SignUp(c echo.Context) error {
 	var u UserCreateDTO
 
@@ -64,16 +62,7 @@ func (h *Handler) SignUp(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Err while adding new user to DB.")
 	}
 
-	t, err := jwt.NewWithClaims(
-		jwt.SigningMethodHS256,
-		helpers.JwtCustomClaims{
-			Role:    helpers.User_role,
-			User_id: r.InsertedID.(primitive.ObjectID),
-			RegisteredClaims: jwt.RegisteredClaims{
-				ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
-			},
-		},
-	).SignedString([]byte(os.Getenv("TOKEN_KEY")))
+	t, err := h.gentoken(r.InsertedID.(primitive.ObjectID).Hex(), helpers.User_role)
 
 	if err != nil {
 		return fmt.Errorf("err during creating token %v", err)
