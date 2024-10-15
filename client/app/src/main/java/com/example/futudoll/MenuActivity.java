@@ -2,6 +2,7 @@ package com.example.futudoll;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,11 +30,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MenuActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs";
     String token = "";
-    int age = 1;
     public AdView mAdView;
     Retrofit retrofit;
     MainApi mainApi;
     User user;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +86,17 @@ public class MenuActivity extends AppCompatActivity {
     public void onTimer(View view) {
         Intent intentTimer = new Intent(this, TimerActivity.class);
         intentTimer.putExtra("salary", user.getExpected_salary());
+        intentTimer.putExtra("token", token);
         startActivity(intentTimer);
     }
 
 
-    public void signInOrUp(View view) {
+    public void logOut(View view) {
         Intent intentSignReg = new Intent(this, AuthorizationActivity.class);
+        sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.remove("token");
+        editor.apply(); // Або editor.commit();
         startActivity(intentSignReg);
     }
 

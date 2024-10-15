@@ -20,6 +20,7 @@ public class TimerActivity extends Activity {
     private long pause_off_set = 0;
     private boolean running;
     private double salary;
+    private String token;
     int start = 0;
     int count = 0;
 
@@ -36,6 +37,7 @@ public class TimerActivity extends Activity {
 
         Intent intent = getIntent();
         salary = intent.getDoubleExtra("salary", 500.0);
+        token = intent.getStringExtra("token");
         salary = salary / 21 / 8 / 60 / 60;
 
         work_sec_counter.setText("" + count * salary);
@@ -57,6 +59,7 @@ public class TimerActivity extends Activity {
     }
     public void backMenu(View v) {
         Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
+        intentBackMenu.putExtra("token", token);
         startActivity(intentBackMenu);
     }
 
@@ -152,49 +155,4 @@ public class TimerActivity extends Activity {
 //            }
 //        }
 //    }
-//    public void saveData(View view) {
-//        edit = findViewById(R.id.editBirthData);
-//        //edit = findViewById(R.id.editDeadData);
-//        FileOutputStream fileOutput = null;
-//        try {
-//            String myTxt = edit.getText().toString();
-//            fileOutput = openFileOutput(FILE_NAME, MODE_PRIVATE); //MODE_APPEND
-//            fileOutput.write(myTxt.getBytes());
-//            Toast.makeText(PohuyActivity.this, "We are save \n your birthday", Toast.LENGTH_LONG).show();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            try {
-//                if (fileOutput != null)
-//                    fileOutput.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
-
-//    public void openData(View view) {
-//        FileInputStream fileInput = null;
-//        textShow = findViewById(R.id.dataView);
-//        try {
-//            fileInput = openFileInput(FILE_NAME);
-//            byte[] bytes = new byte[1024];
-//            fileInput.read(bytes);
-//            String text = new String(bytes);
-//            textShow.setText(text);
-//            fileInput.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (fileInput != null)
-//                    fileInput.close();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }

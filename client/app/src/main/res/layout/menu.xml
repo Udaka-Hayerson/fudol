@@ -23,13 +23,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/logOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="57dp"
-        android:text="sign in/up"
-        android:onClick="signInOrUp"
+        android:text="logOut"
+        android:onClick="logOut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
         android:layout_marginTop="57dp"
         android:text="die and born timer"
         android:onClick="dieEndBornTimer"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/logOut"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.gms.ads.AdView

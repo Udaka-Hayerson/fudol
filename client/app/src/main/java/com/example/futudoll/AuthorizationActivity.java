@@ -1,7 +1,9 @@
 package com.example.futudoll;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,13 @@ import com.example.futudoll.retrofit.User;
 import com.example.futudoll.retrofit.UserResponse;
 import com.google.gson.internal.LinkedTreeMap;
 
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -27,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AuthorizationActivity extends Activity implements View.OnClickListener {
 
     final String LOG_TAG = "myLogs";
-
+    final String FILE_NAME = "user_token";
     EditText nickname;
     EditText login;
     EditText password;
@@ -35,9 +44,11 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
     Button btnSubmit;
     DatePicker datePicker;
     String birthday;
-
     MainApi mainApi;
     Retrofit retrofit;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String token;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,34 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
 
         btnSubmit = (Button) findViewById(R.id.sign_up);
         btnSubmit.setOnClickListener(this);
+        sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+
+        if(sharedPreferences.contains("token")){
+            Intent intent = new Intent(AuthorizationActivity.this, MenuActivity.class);
+            intent.putExtra("token", sharedPreferences.getString("token", "loh"));
+            startActivity(intent);
+        } else {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addInterceptor(logging);
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://10.0.2.2:8080/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient.build())
+                    .build();
+            mainApi = retrofit.create(MainApi.class);
+
+            datePicker = this.findViewById(R.id.datePicker);
+            datePicker.init(2000, 02, 01, new DatePicker.OnDateChangedListener() {
+                @Override
+                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    birthday =  view.getYear() + "/" +
+                            (view.getMonth() + 1) + "/" + view.getDayOfMonth();
+                }
+            });
+        }
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -64,12 +103,10 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                 .build();
         mainApi = retrofit.create(MainApi.class);
 
-        DatePicker datePicker = this.findViewById(R.id.datePicker);
+        datePicker = this.findViewById(R.id.datePicker);
         datePicker.init(2000, 02, 01, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                // Отсчет месяцев начинается с нуля. Для отображения добавляем 1.
                 birthday =  view.getYear() + "/" +
                         (view.getMonth() + 1) + "/" + view.getDayOfMonth();
             }
@@ -97,12 +134,16 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                     public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                         if (response.isSuccessful()) {
                             UserResponse userResponse = response.body();
-                            // userResponse.getToken()
+                            token = userResponse.getToken();
+//                            saveData(token);
+                            editor = sharedPreferences.edit();
+                            editor.putString("token", token);
+                            editor.apply(); // Або editor.commit();
                             Intent intent = new Intent(AuthorizationActivity.this, MenuActivity.class);
-                            intent.putExtra("token", userResponse.getToken());
+                            intent.putExtra("token", token);
                             startActivity(intent);
 
-                            Log.e(LOG_TAG, response.body().getToken());
+                            Log.e(LOG_TAG, token);
                             Log.e(LOG_TAG, String.valueOf(response.body()));
 
                         } else {
@@ -147,6 +188,50 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
             return false;
         }
         return true;
+    }
+
+
+    public void saveData(String token) {
+        FileOutputStream fileOutput = null;
+        try {
+            fileOutput = openFileOutput(FILE_NAME, MODE_PRIVATE); //MODE_APPEND
+            fileOutput.write(token.getBytes());
+            Toast.makeText(this, "We are save \n your token", Toast.LENGTH_LONG).show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (fileOutput != null)
+                    fileOutput.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public void openData(View view) {
+        FileInputStream fileInput = null;
+        try {
+            fileInput = openFileInput(FILE_NAME);
+            byte[] bytes = new byte[1024];
+            fileInput.read(bytes);
+            String text = new String(bytes);
+//            textShow.setText(text);
+            fileInput.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileInput != null)
+                    fileInput.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 
