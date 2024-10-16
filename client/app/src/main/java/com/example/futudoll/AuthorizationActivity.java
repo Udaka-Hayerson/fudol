@@ -62,6 +62,15 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
 
         btnSubmit = (Button) findViewById(R.id.sign_up);
         btnSubmit.setOnClickListener(this);
+        datePicker = this.findViewById(R.id.datePicker);
+        datePicker.init(2000, 02, 01, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                birthday =  view.getYear() + "/" +
+                        (view.getMonth() + 1) + "/" + view.getDayOfMonth();
+            }
+        });
+
         sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
 
         if(sharedPreferences.contains("token")){
@@ -80,38 +89,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                     .client(httpClient.build())
                     .build();
             mainApi = retrofit.create(MainApi.class);
-
-            datePicker = this.findViewById(R.id.datePicker);
-            datePicker.init(2000, 02, 01, new DatePicker.OnDateChangedListener() {
-                @Override
-                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    birthday =  view.getYear() + "/" +
-                            (view.getMonth() + 1) + "/" + view.getDayOfMonth();
-                }
-            });
         }
-
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        mainApi = retrofit.create(MainApi.class);
-
-        datePicker = this.findViewById(R.id.datePicker);
-        datePicker.init(2000, 02, 01, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                birthday =  view.getYear() + "/" +
-                        (view.getMonth() + 1) + "/" + view.getDayOfMonth();
-            }
-        });
-
 
     }
 
@@ -135,7 +113,6 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                         if (response.isSuccessful()) {
                             UserResponse userResponse = response.body();
                             token = userResponse.getToken();
-//                            saveData(token);
                             editor = sharedPreferences.edit();
                             editor.putString("token", token);
                             editor.apply(); // Або editor.commit();
@@ -147,7 +124,6 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
                             Log.e(LOG_TAG, String.valueOf(response.body()));
 
                         } else {
-                            // Handle unsuccessful response
                             Log.e(LOG_TAG, "Response error: " + response.message());
                             Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                         }
@@ -175,11 +151,11 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
             Toast.makeText(this, "Please enter your birthday.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (login.getText().toString().trim().isEmpty()) {
+        if (login.getText().toString().trim().isEmpty()) { // && login.getText().toString().trim().length() < 8
             Toast.makeText(this, "Please enter your login.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (password.getText().toString().trim().isEmpty()) {
+        if (password.getText().toString().trim().isEmpty()) { // && password.getText().toString().trim().length() < 8
             Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -190,48 +166,53 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
         return true;
     }
 
-
-    public void saveData(String token) {
-        FileOutputStream fileOutput = null;
-        try {
-            fileOutput = openFileOutput(FILE_NAME, MODE_PRIVATE); //MODE_APPEND
-            fileOutput.write(token.getBytes());
-            Toast.makeText(this, "We are save \n your token", Toast.LENGTH_LONG).show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                if (fileOutput != null)
-                    fileOutput.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void signIn(View view) {
+        Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 
-    public void openData(View view) {
-        FileInputStream fileInput = null;
-        try {
-            fileInput = openFileInput(FILE_NAME);
-            byte[] bytes = new byte[1024];
-            fileInput.read(bytes);
-            String text = new String(bytes);
-//            textShow.setText(text);
-            fileInput.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileInput != null)
-                    fileInput.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    public void saveData(String token) {
+//        FileOutputStream fileOutput = null;
+//        try {
+//            fileOutput = openFileOutput(FILE_NAME, MODE_PRIVATE); //MODE_APPEND
+//            fileOutput.write(token.getBytes());
+//            Toast.makeText(this, "We are save \n your token", Toast.LENGTH_LONG).show();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        finally {
+//            try {
+//                if (fileOutput != null)
+//                    fileOutput.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//
+//    public void openData(View view) {
+//        FileInputStream fileInput = null;
+//        try {
+//            fileInput = openFileInput(FILE_NAME);
+//            byte[] bytes = new byte[1024];
+//            fileInput.read(bytes);
+//            String text = new String(bytes);
+////            textShow.setText(text);
+//            fileInput.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (fileInput != null)
+//                    fileInput.close();
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }
 

@@ -16,6 +16,9 @@ public interface MainApi {
     @POST("/signup")
     Call<UserResponse> signUp(@Body AuthRequest authRequest);
 
+    @POST("/signin")
+    Call<UserResponse> signIn(@Body UserSignInDTO userSignInDTO);
+
     @GET("/user")
     Call<User> getUserByToken(@Header("Authorization") String token);
 
