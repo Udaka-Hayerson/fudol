@@ -5,31 +5,31 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    @SerializedName("Id")
+    @SerializedName("id")
     private int id;
-    @SerializedName("Nickname")
+    @SerializedName("nickname")
     private String nickname;
-    @SerializedName("Birthday")
+    @SerializedName("birthday")
     private String birthday;
-    @SerializedName("Login")
+    @SerializedName("login")
     private String login;
-    @SerializedName("Password")
+    @SerializedName("password")
     private String password;
-    @SerializedName("Token")
+    @SerializedName("token")
     private String token;
-    @SerializedName("Expected_salary")
-    private double expected_salary;
-    @SerializedName("TimeCount")
-    private double timeCount;
+    @SerializedName("expectedSalary")
+    private double expectedSalary;
+    @SerializedName("timeCount")
+    private int timeCount;
 
-    public User(int id, String nickname, String birthday, String login, String password, String token, double expected_salary, double timeCount) {
+    public User(int id, String nickname, String birthday, String login, String password, String token, double expectedSalary, int timeCount) {
         this.id = id;
         this.nickname = nickname;
         this.birthday = birthday;
         this.login = login;
         this.password = password;
         this.token = token;
-        this.expected_salary = expected_salary;
+        this.expectedSalary = expectedSalary;
         this.timeCount = timeCount;
     }
 
@@ -57,8 +57,8 @@ public class User implements Serializable {
         return token;
     }
 
-    public double getExpected_salary() {
-        return expected_salary;
+    public double getExpectedSalary() {
+        return expectedSalary;
     }
 
     public double getTimeCount() {
@@ -89,11 +89,11 @@ public class User implements Serializable {
         this.token = token;
     }
 
-    public void setExpected_salary(double expected_salary) {
-        this.expected_salary = expected_salary;
+    public void setExpectedSalary(double expectedSalary) {
+        this.expectedSalary = expectedSalary;
     }
 
-    public void setTimeCount(double timeCount) {
+    public void setTimeCount(int timeCount) {
         this.timeCount = timeCount;
     }
 

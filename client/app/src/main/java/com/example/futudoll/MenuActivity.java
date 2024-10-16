@@ -85,7 +85,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void onTimer(View view) {
         Intent intentTimer = new Intent(this, TimerActivity.class);
-        intentTimer.putExtra("salary", user.getExpected_salary());
+        intentTimer.putExtra("salary", user.getExpectedSalary());
         intentTimer.putExtra("token", token);
         startActivity(intentTimer);
     }

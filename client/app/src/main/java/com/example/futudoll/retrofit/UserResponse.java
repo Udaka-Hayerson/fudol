@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class UserResponse implements Serializable {
-    @SerializedName("Token")
+    @SerializedName("token")
     private String token;
 
     public UserResponse(String token) {
