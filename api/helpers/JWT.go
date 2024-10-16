@@ -2,12 +2,13 @@ package helpers
 
 import (
 	"github.com/golang-jwt/jwt/v5"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type (
 	JwtCustomClaims struct {
 		Role    Role
-		User_id string
+		User_id primitive.ObjectID
 		jwt.RegisteredClaims
 	}
 

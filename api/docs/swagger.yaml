@@ -1,5 +1,12 @@
 basePath: /
 definitions:
+  handlers.IncreaseTimeCountDTO:
+    properties:
+      count:
+        type: integer
+    required:
+    - count
+    type: object
   handlers.UserCreateDTO:
     properties:
       birthday:
@@ -52,6 +59,8 @@ definitions:
         type: string
       password:
         type: string
+      timeCount:
+        type: integer
     type: object
 host: http://localhost:8080
 info:
@@ -121,6 +130,30 @@ paths:
       summary: sign up
       tags:
       - Auth
+  /timecount/increase:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: body request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.IncreaseTimeCountDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: invalid body fields.
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Increase time count
+      tags:
+      - Time count
   /user:
     get:
       produces:
@@ -128,10 +161,6 @@ paths:
       responses:
         "200":
           description: OK
-          headers:
-            Token:
-              description: Bearer
-              type: string
           schema:
             $ref: '#/definitions/models.User'
       security:

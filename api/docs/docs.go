@@ -106,6 +106,45 @@ const docTemplate = `{
                 }
             }
         },
+        "/timecount/increase": {
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Time count"
+                ],
+                "summary": "Increase time count",
+                "parameters": [
+                    {
+                        "description": "body request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.IncreaseTimeCountDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "invalid body fields.",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "security": [
@@ -125,12 +164,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.User"
-                        },
-                        "headers": {
-                            "Token": {
-                                "type": "string",
-                                "description": "Bearer"
-                            }
                         }
                     }
                 }
@@ -138,6 +171,17 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "handlers.IncreaseTimeCountDTO": {
+            "type": "object",
+            "required": [
+                "count"
+            ],
+            "properties": {
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
         "handlers.UserCreateDTO": {
             "type": "object",
             "required": [
@@ -215,6 +259,9 @@ const docTemplate = `{
                 },
                 "password": {
                     "type": "string"
+                },
+                "timeCount": {
+                    "type": "integer"
                 }
             }
         }

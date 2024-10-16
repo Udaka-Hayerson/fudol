@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -19,7 +20,7 @@ type (
 	}
 )
 
-func (h *Handler) gentoken(id string, role helpers.Role) (token string, err error) {
+func (h *Handler) gentoken(id primitive.ObjectID, role helpers.Role) (token string, err error) {
 	token, err = jwt.NewWithClaims(
 		jwt.SigningMethodHS256,
 		helpers.JwtCustomClaims{
