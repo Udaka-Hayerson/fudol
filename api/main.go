@@ -90,6 +90,7 @@ func main() {
 	e.DELETE("/users", h.RemoveUsers)
 	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())
 	e.PATCH("/timecount/increase", h.TimeCountIncrease, middlewares.AuthMiddleware())
+	e.PATCH("/timecount/reset", h.TimeCountReset, middlewares.AuthMiddleware())
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Welcome to Fudol API")
 	})

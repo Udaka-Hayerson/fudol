@@ -154,6 +154,20 @@ paths:
       summary: Increase time count
       tags:
       - Time count
+  /timecount/reset:
+    patch:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: reset time count
+      tags:
+      - Time count
   /user:
     get:
       produces:
