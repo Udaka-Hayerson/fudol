@@ -3,6 +3,8 @@ package com.example.futudoll;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TimerActivity extends Activity {
     final String LOG_TAG = "myLogs";
     MainApi mainApi;
+    double fudol;
     public TextView timerView;
     public TextView work_sec_counter;
     Timer myTimer;
@@ -140,7 +143,14 @@ public class TimerActivity extends Activity {
                 start++;
                 timerView.setText("" + start);
                 count = count + start; //TODO:
-                work_sec_counter.setText("" + count * salary);//TODO:
+                new Handler(Looper.getMainLooper()).post(new Runnable(){
+                    @Override
+                    public void run() {
+                        fudol = count * salary;
+                        work_sec_counter.setText("" + fudol);
+                    }
+                });
+//                work_sec_counter.setText("" + count * salary);//TODO:
 
             }
 
@@ -155,7 +165,8 @@ public class TimerActivity extends Activity {
             myTimer.cancel();
             count = count + start;
             start = 0;
-            work_sec_counter.setText("" + count * salary);
+            fudol = count * salary;
+            work_sec_counter.setText("" + fudol);
             //saveData(work_sec_counter); потім змінити
         } else {
             return;
@@ -165,7 +176,8 @@ public class TimerActivity extends Activity {
     public void resetChronometer(View view) {
         count = count + start;
         start = 0;
-        work_sec_counter.setText("" + count * salary);
+        fudol = count * salary;
+        work_sec_counter.setText("" + fudol);
         chronometer.setBase(SystemClock.elapsedRealtime());
         pause_off_set = 0;
         //saveData(work_sec_counter); потім змінити
