@@ -85,10 +85,6 @@ public class NoMainActivity extends AppCompatActivity {
         startActivity(intentBack);
 
     }
-//    public void btnNextMethod(View v) {
-//        Intent intentNext = new Intent(NoMainActivity.this , MenuActivity.class);
-//        startActivity(intentNext);
-//    }
     public void btnStartTimerMethod(View v)
     {
         new Timer().scheduleAtFixedRate(new TimerTask()

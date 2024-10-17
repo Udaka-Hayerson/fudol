@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     Button logInIn;
     String token;
     MainApi mainApi;
-    Retrofit retrofit;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -47,17 +46,7 @@ public class MainActivity extends AppCompatActivity {
         login = (EditText) findViewById(R.id.auth_login);
         password = (EditText) findViewById(R.id.auth_password);
         logInIn = (Button) findViewById(R.id.log_in_in);
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        mainApi = retrofit.create(MainApi.class);
+        mainApi = Utils.retrofitInstance(this);
 
         logInIn.setOnClickListener(new OnClickListener() {
             @Override

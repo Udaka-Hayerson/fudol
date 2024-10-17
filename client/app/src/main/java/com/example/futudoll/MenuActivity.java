@@ -31,7 +31,6 @@ public class MenuActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs";
     String token = "";
     public AdView mAdView;
-    Retrofit retrofit;
     MainApi mainApi;
     User user;
     SharedPreferences sharedPreferences;
@@ -47,18 +46,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getUser() throws NumberFormatException {
-        Log.e(LOG_TAG, " menu token " + token);
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        mainApi = retrofit.create(MainApi.class);
+        mainApi = Utils.retrofitInstance(this);
         Call<User> call = mainApi.getUserByToken("Bearer " + token);
         call.enqueue(new Callback<User>() {
             @Override

@@ -45,7 +45,6 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
     DatePicker datePicker;
     String birthday;
     MainApi mainApi;
-    Retrofit retrofit;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String token;
@@ -78,17 +77,7 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
             intent.putExtra("token", sharedPreferences.getString("token", "loh"));
             startActivity(intent);
         } else {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addInterceptor(logging);
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.2.2:8080/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient.build())
-                    .build();
-            mainApi = retrofit.create(MainApi.class);
+            mainApi = Utils.retrofitInstance(this);
         }
 
     }

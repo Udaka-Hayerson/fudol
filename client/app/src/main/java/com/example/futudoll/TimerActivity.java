@@ -30,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TimerActivity extends Activity {
     final String LOG_TAG = "myLogs";
     MainApi mainApi;
-    Retrofit retrofit;
     public TextView timerView;
     public TextView work_sec_counter;
     Timer myTimer;
@@ -57,17 +56,7 @@ public class TimerActivity extends Activity {
         salary = intent.getDoubleExtra("salary", 500.0);
         token = intent.getStringExtra("token");
         salary = salary / 21 / 8 / 60 / 60;
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        mainApi = retrofit.create(MainApi.class);
+        mainApi = Utils.retrofitInstance(this);
 
         work_sec_counter.setText("" + count * salary);
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
@@ -150,6 +139,9 @@ public class TimerActivity extends Activity {
             public void run() {
                 start++;
                 timerView.setText("" + start);
+                count = count + start; //TODO:
+                work_sec_counter.setText("" + count * salary);//TODO:
+
             }
 
         }, 0, 1000);
