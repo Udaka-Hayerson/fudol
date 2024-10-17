@@ -85,6 +85,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void onTimer(View view) {
         Intent intentTimer = new Intent(this, TimerActivity.class);
+        Log.e(LOG_TAG, "salary: " + user.getExpectedSalary());
         intentTimer.putExtra("salary", user.getExpectedSalary());
         intentTimer.putExtra("token", token);
         startActivity(intentTimer);
@@ -103,6 +104,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void dieEndBornTimer(View view) {
         Intent intentDieEndBornTimer = new Intent(this, NoMainActivity.class);
+        Log.e(LOG_TAG, "birthday: " + user.getBirthday());
         intentDieEndBornTimer.putExtra("birthday", user.getBirthday());
         startActivity(intentDieEndBornTimer);
     }

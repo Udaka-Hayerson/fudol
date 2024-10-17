@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     @SerializedName("id")
-    private int id;
+    private String id;
     @SerializedName("nickname")
     private String nickname;
     @SerializedName("birthday")
@@ -22,7 +22,7 @@ public class User implements Serializable {
     @SerializedName("timeCount")
     private int timeCount;
 
-    public User(int id, String nickname, String birthday, String login, String password, String token, double expectedSalary, int timeCount) {
+    public User(String id, String nickname, String birthday, String login, String password, String token, double expectedSalary, int timeCount) {
         this.id = id;
         this.nickname = nickname;
         this.birthday = birthday;
@@ -33,7 +33,7 @@ public class User implements Serializable {
         this.timeCount = timeCount;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -65,7 +65,7 @@ public class User implements Serializable {
         return timeCount;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

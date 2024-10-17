@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class UserSignInDTO  implements Serializable {
-    @SerializedName("Login")
+    @SerializedName("login")
     String login;
 
-    @SerializedName("Password")
+    @SerializedName("password")
     String password;
 
     public UserSignInDTO(String login, String password) {
