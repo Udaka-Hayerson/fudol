@@ -84,13 +84,19 @@ func main() {
 	)
 
 	e.GET("/docs/*", echoSwagger.WrapHandler)
+
 	e.POST("/signup", h.SignUp)
 	e.POST("/signin", h.SignIn)
-	e.GET("/users", h.GetUserList)
-	e.DELETE("/users", h.RemoveUsers)
+	e.GET("/users", h.GetUserPublicList)
 	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())
 	e.PATCH("/timecount/increase", h.TimeCountIncrease, middlewares.AuthMiddleware())
 	e.PATCH("/timecount/reset", h.TimeCountReset, middlewares.AuthMiddleware())
+
+	adm := e.Group("/adm")
+
+	adm.GET("/users", h.GetUserList)
+	adm.DELETE("/users", h.RemoveUsers)
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Welcome to Fudol API")
 	})

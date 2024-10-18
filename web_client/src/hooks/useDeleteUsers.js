@@ -7,7 +7,7 @@ export default function useDeleteUsers() {
 
 	return useMutation({
 		mutationFn: async function (ids) {
-			const url = new URL("http://localhost:8080/users")
+			const url = new URL("http://localhost:8080/adm/users")
 
 			url.searchParams.append("ids", ids)
 			await fetch(url.href, { method: "DELETE", body: ids })

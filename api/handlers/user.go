@@ -19,13 +19,13 @@ import (
 //	@Produce	json
 //	@Security	ApiKeyAuth
 //	@Header		200	{string}	Token	"Bearer"
-//	@Success	200	{object}	models.User
+//	@Success	200	{object}	models.UserPublic
 //	@Router		/user [get]
 func (h *Handler) GetUserData(c echo.Context) error {
 	token, _ := c.Get(constants.TokenData).(*jwt.Token)
 	claims, _ := token.Claims.(*helpers.JwtCustomClaims)
 	r := h.Store.Users.FindOne(context.TODO(), bson.M{"_id": claims.User_id})
-	var u models.User
+	var u models.UserPublic
 
 	if err := r.Decode(&u); err != nil {
 		return c.String(http.StatusNotFound, "user not found")

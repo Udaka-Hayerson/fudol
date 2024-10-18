@@ -43,7 +43,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.UserSigninDTO"
+                            "$ref": "#/definitions/handlers.UserSignInDTO"
                         }
                     }
                 ],
@@ -51,7 +51,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.UserSigninSuccessDTO"
+                            "$ref": "#/definitions/dto.SuccessAuthDTO"
                         }
                     },
                     "400": {
@@ -84,7 +84,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.UserCreateDTO"
+                            "$ref": "#/definitions/handlers.UserSignUpDTO"
                         }
                     }
                 ],
@@ -92,7 +92,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/handlers.UserCreatedDTO"
+                            "$ref": "#/definitions/dto.SuccessAuthDTO"
                         }
                     },
                     "400": {
@@ -187,7 +187,29 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/models.UserPublic"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "get user list",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.UserPublic"
+                            }
                         }
                     }
                 }
@@ -195,6 +217,14 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "dto.SuccessAuthDTO": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "handlers.IncreaseTimeCountDTO": {
             "type": "object",
             "required": [
@@ -206,7 +236,22 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.UserCreateDTO": {
+        "handlers.UserSignInDTO": {
+            "type": "object",
+            "required": [
+                "login",
+                "password"
+            ],
+            "properties": {
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.UserSignUpDTO": {
             "type": "object",
             "required": [
                 "expected_salary",
@@ -232,38 +277,7 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.UserCreatedDTO": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
-                }
-            }
-        },
-        "handlers.UserSigninDTO": {
-            "type": "object",
-            "required": [
-                "login",
-                "password"
-            ],
-            "properties": {
-                "login": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "handlers.UserSigninSuccessDTO": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.User": {
+        "models.UserPublic": {
             "type": "object",
             "properties": {
                 "birthday": {
@@ -275,13 +289,7 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "login": {
-                    "type": "string"
-                },
                 "nickname": {
-                    "type": "string"
-                },
-                "password": {
                     "type": "string"
                 },
                 "timeCount": {

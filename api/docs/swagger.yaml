@@ -1,5 +1,10 @@
 basePath: /
 definitions:
+  dto.SuccessAuthDTO:
+    properties:
+      token:
+        type: string
+    type: object
   handlers.IncreaseTimeCountDTO:
     properties:
       count:
@@ -7,7 +12,17 @@ definitions:
     required:
     - count
     type: object
-  handlers.UserCreateDTO:
+  handlers.UserSignInDTO:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    required:
+    - login
+    - password
+    type: object
+  handlers.UserSignUpDTO:
     properties:
       birthday:
         type: string
@@ -25,27 +40,7 @@ definitions:
     - nickname
     - password
     type: object
-  handlers.UserCreatedDTO:
-    properties:
-      token:
-        type: string
-    type: object
-  handlers.UserSigninDTO:
-    properties:
-      login:
-        type: string
-      password:
-        type: string
-    required:
-    - login
-    - password
-    type: object
-  handlers.UserSigninSuccessDTO:
-    properties:
-      token:
-        type: string
-    type: object
-  models.User:
+  models.UserPublic:
     properties:
       birthday:
         type: string
@@ -53,11 +48,7 @@ definitions:
         type: number
       id:
         type: string
-      login:
-        type: string
       nickname:
-        type: string
-      password:
         type: string
       timeCount:
         type: integer
@@ -86,14 +77,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/handlers.UserSigninDTO'
+          $ref: '#/definitions/handlers.UserSignInDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/handlers.UserSigninSuccessDTO'
+            $ref: '#/definitions/dto.SuccessAuthDTO'
         "400":
           description: invalid body fields.
           schema: {}
@@ -113,14 +104,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/handlers.UserCreateDTO'
+          $ref: '#/definitions/handlers.UserSignUpDTO'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/handlers.UserCreatedDTO'
+            $ref: '#/definitions/dto.SuccessAuthDTO'
         "400":
           description: invalid body fields.
           schema: {}
@@ -176,10 +167,24 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.User'
+            $ref: '#/definitions/models.UserPublic'
       security:
       - ApiKeyAuth: []
       summary: get user data
+      tags:
+      - User
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserPublic'
+            type: array
+      summary: get user list
       tags:
       - User
 securityDefinitions:
