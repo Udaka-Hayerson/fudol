@@ -150,7 +150,6 @@ public class TimerActivity extends Activity {
                         work_sec_counter.setText("" + fudol);
                     }
                 });
-//                work_sec_counter.setText("" + count * salary);//TODO:
 
             }
 
