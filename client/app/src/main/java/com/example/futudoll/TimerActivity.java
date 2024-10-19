@@ -108,31 +108,6 @@ public class TimerActivity extends Activity {
         Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
         intentBackMenu.putExtra("token", token);
         startActivity(intentBackMenu);
-//        IncreaseTimeCountDTO increaseTimeCountDTO = new IncreaseTimeCountDTO(count);
-//        Call<ResponseBody> call = mainApi.increaseTimeCount("Bearer " + token, increaseTimeCountDTO);
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if (response.isSuccessful()) {
-//                    ResponseBody responseBody = response.body();
-//                    Log.e(LOG_TAG, String.valueOf(response.body()));
-//                    Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
-//                    intentBackMenu.putExtra("token", token);
-//                    startActivity(intentBackMenu);
-//
-//                } else {
-//                    Log.e(LOG_TAG, "Response error: " + response.message());
-//                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                // Handle failure
-//                Log.e(LOG_TAG, "API call failed: " + t.getMessage());
-//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     public void startChronometer(View view) {
@@ -148,8 +123,8 @@ public class TimerActivity extends Activity {
         myTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                count++;
                 timerView.setText("" + count);
+                count++;
                 new Handler(Looper.getMainLooper()).post(new Runnable(){
                     @Override
                     public void run() {
@@ -169,8 +144,6 @@ public class TimerActivity extends Activity {
             chronometer.stop();
             running = false;
             myTimer.cancel();
-            count = count + start;
-            start = 0;
             fudol = count * salary;
             work_sec_counter.setText("" + fudol);
         } else {
