@@ -15,7 +15,7 @@ jobs:
           username: "root"
           key: ${{ secrets.MAINBUS_SSH_KEY }}
           script: |
-            cd /var/www/Leprechaun
+            cd /root/projects/fudol
             git reset --hard HEAD
             git pull origin master
       - name: Rebuild && up containers
