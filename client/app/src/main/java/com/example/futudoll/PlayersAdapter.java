@@ -12,6 +12,7 @@ import java.util.List;
 
 public class PlayersAdapter extends BaseAdapter {
 
+    private int place = 1;
     private List<User> users;
     private LayoutInflater layoutInflater;
 
@@ -47,8 +48,9 @@ public class PlayersAdapter extends BaseAdapter {
         TextView time_count = (TextView) view.findViewById(R.id.time_count);
 
 
-        nickname.setText("First name: " + user.getNickname());
-        time_count.setText("Last name: " + user.getTimeCount());
+        nickname.setText(place + " " + user.getNickname());
+        time_count.setText("score: " + user.getTimeCount());
+        place++;
 
         return view;
     }

@@ -74,32 +74,11 @@ public class TimerActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        IncreaseTimeCountDTO increaseTimeCountDTO = new IncreaseTimeCountDTO(count);
-        Call<ResponseBody> call = mainApi.increaseTimeCount("Bearer " + token, increaseTimeCountDTO);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    ResponseBody responseBody = response.body();
-                    Log.e(LOG_TAG, String.valueOf(response.body()));
-
-                } else {
-                    Log.e(LOG_TAG, "Response error: " + response.message());
-                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Handle failure
-                Log.e(LOG_TAG, "API call failed: " + t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        saveTimeCountOnServer();
         super.onDestroy();
     }
 
-    public void backMenu(View v) {
+    private void saveTimeCountOnServer() {
         IncreaseTimeCountDTO increaseTimeCountDTO = new IncreaseTimeCountDTO(count);
         Call<ResponseBody> call = mainApi.increaseTimeCount("Bearer " + token, increaseTimeCountDTO);
         call.enqueue(new Callback<ResponseBody>() {
@@ -107,10 +86,7 @@ public class TimerActivity extends Activity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     ResponseBody responseBody = response.body();
-                    Log.e(LOG_TAG, String.valueOf(response.body()));
-                    Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
-                    intentBackMenu.putExtra("token", token);
-                    startActivity(intentBackMenu);
+                    Log.e(LOG_TAG, String.valueOf(responseBody));
 
                 } else {
                     Log.e(LOG_TAG, "Response error: " + response.message());
@@ -125,6 +101,38 @@ public class TimerActivity extends Activity {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void backMenu(View v) {
+        saveTimeCountOnServer();
+        Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
+        intentBackMenu.putExtra("token", token);
+        startActivity(intentBackMenu);
+//        IncreaseTimeCountDTO increaseTimeCountDTO = new IncreaseTimeCountDTO(count);
+//        Call<ResponseBody> call = mainApi.increaseTimeCount("Bearer " + token, increaseTimeCountDTO);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (response.isSuccessful()) {
+//                    ResponseBody responseBody = response.body();
+//                    Log.e(LOG_TAG, String.valueOf(response.body()));
+//                    Intent intentBackMenu = new Intent(TimerActivity.this, MenuActivity.class);
+//                    intentBackMenu.putExtra("token", token);
+//                    startActivity(intentBackMenu);
+//
+//                } else {
+//                    Log.e(LOG_TAG, "Response error: " + response.message());
+//                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                // Handle failure
+//                Log.e(LOG_TAG, "API call failed: " + t.getMessage());
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public void startChronometer(View view) {
@@ -140,9 +148,8 @@ public class TimerActivity extends Activity {
         myTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                start++;
-                timerView.setText("" + start);
-                count = count + start; //TODO:
+                count++;
+                timerView.setText("" + count);
                 new Handler(Looper.getMainLooper()).post(new Runnable(){
                     @Override
                     public void run() {
@@ -166,68 +173,18 @@ public class TimerActivity extends Activity {
             start = 0;
             fudol = count * salary;
             work_sec_counter.setText("" + fudol);
-            //saveData(work_sec_counter); потім змінити
         } else {
             return;
         }
     }
 
     public void resetChronometer(View view) {
-        count = count + start;
-        start = 0;
         fudol = count * salary;
-        work_sec_counter.setText("" + fudol);
+        work_sec_counter.setText("" + fudol);;
+        saveTimeCountOnServer();
+        count = 0;
         chronometer.setBase(SystemClock.elapsedRealtime());
         pause_off_set = 0;
-        //saveData(work_sec_counter); потім змінити
     }
 }
-//    public void saveData(View view) {
-//        timerView = findViewById(R.id.timerView);
-//        FileOutputStream fileOutput = null;
-//        try {
-//            String myTxt = work_sec_counter.getText().toString();
-//            fileOutput = openFileOutput("work_time.txt", MODE_PRIVATE); //MODE_APPEND
-//            fileOutput.write(myTxt.getBytes());
-//            Toast.makeText(PohuyActivity.this, "We are save \n your birthday", Toast.LENGTH_LONG).show();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            try {
-//                if (fileOutput != null)
-//                    fileOutput.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//    TODO: потрібно зробити так щоб кожного разу в
-//     файл записувався сумма , з того що в ньому є
-//     і лічильника роботи в секундах за останній
-//     робочій період. Тобто метод openDate  має
-//     бути інтегрованим в метод saveDate
-//    public void openData(View view) {
-//        FileInputStream fileInput = null;
-//        work_sec_counter = findViewById(R.id.work_sec_counter);
-//        try {
-//            fileInput = openFileInput("work_time.txt");
-//            byte[] bytes = new byte[1024];
-//            fileInput.read(bytes);
-//            String text = new String(bytes);
-//            work_sec_counter.setText(text);
-//            fileInput.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (fileInput != null)
-//                    fileInput.close();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
