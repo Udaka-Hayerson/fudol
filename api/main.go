@@ -101,5 +101,5 @@ func main() {
 		return c.String(http.StatusOK, "Welcome to Fudol API")
 	})
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":80"))
 }

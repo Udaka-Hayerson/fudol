@@ -1,0 +1,29 @@
+name: Deploy remote project
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch master branch
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.MAINBUS_HOST }}
+          username: "root"
+          key: ${{ secrets.MAINBUS_SSH_KEY }}
+          script: |
+            cd /root/projects/fudol
+            git reset --hard HEAD
+            git pull origin master
+      - name: Rebuild && up containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.MAINBUS_HOST }}
+          username: "root"
+          key: ${{ secrets.MAINBUS_SSH_KEY }}
+          script: |
+            cd /root/projects/fudol
+            docker compose up --build -d

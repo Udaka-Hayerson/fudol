@@ -6,11 +6,13 @@ services:
       context: ./web_client
       dockerfile: Dockerfile
     ports:
-      - 8081:5173
+      - 8081:80
     volumes:
       - ./web_client:/app
     depends_on:
       - api
+    environment:
+      - API_HOST
 
   api:
     container_name: fudol_api
@@ -27,7 +29,7 @@ services:
       - TOKEN_KEY
       - IS_CONTAINER=true
     ports:
-      - 8080:8080
+      - 8080:80
     volumes:
       - ./api:/app
     depends_on:
@@ -36,7 +38,7 @@ services:
   db:
     container_name: fudol_db
     restart: unless-stopped
-    image: mongo
+    image: mongo:4.4.6
     ports:
       - 27017:27017
     environment:

@@ -6,7 +6,7 @@ export default function useUserList() {
 	return useQuery({
 		queryKey: [USER_LIST],
 		queryFn: async function () {
-			const b = await fetch("http://localhost:8080/adm/users")
+			const b = await fetch(`/api/adm/users`)
 			return await b.json()
 		},
 	})
