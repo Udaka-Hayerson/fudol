@@ -47,8 +47,6 @@ const Users = () => {
 		mutate(selectedItems)
 	}
 
-	console.log(data)
-
 	return (
 		<div>
 			<Paper>
@@ -103,7 +101,7 @@ const Users = () => {
 						</TableBody>
 					</Table>
 				</TableContainer>
-                {!data?.length && <Typography align="center">no users yet</Typography>}
+				{!data?.length && <Typography align="center">no users yet</Typography>}
 			</Paper>
 		</div>
 	)
