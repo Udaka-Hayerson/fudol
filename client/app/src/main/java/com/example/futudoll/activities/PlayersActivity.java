@@ -1,4 +1,4 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.futudoll.R;
 import com.example.futudoll.retrofit.MainApi;
 import com.example.futudoll.retrofit.User;
 

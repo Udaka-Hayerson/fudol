@@ -1,4 +1,4 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 import android.content.Context;
 

@@ -1,18 +1,17 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 //import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.futudoll.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,16 +19,9 @@ import java.util.TimerTask;
 
 public class NoMainActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs";
-    public long seconds_to_dead;
-    public long seconds_after_birth;
-    public TextView t_t_die;
-    public TextView t_a_birth;
-    long year_birth;
-    long month_birth;
-    long day_birth;
-    long year_dead;
-    long month_dead;
-    long day_dead;
+    TextView t_t_die;
+    TextView t_a_birth;
+    long seconds_after_birth , seconds_to_dead , year_birth , month_birth , day_birth , year_dead , month_dead , day_dead;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 

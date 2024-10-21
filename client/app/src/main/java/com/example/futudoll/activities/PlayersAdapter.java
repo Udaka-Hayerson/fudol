@@ -1,4 +1,4 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.futudoll.R;
 import com.example.futudoll.retrofit.User;
 
 import java.util.List;

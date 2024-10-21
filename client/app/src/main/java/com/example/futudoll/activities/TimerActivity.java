@@ -1,4 +1,4 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,21 +12,17 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.futudoll.R;
 import com.example.futudoll.retrofit.IncreaseTimeCountDTO;
 import com.example.futudoll.retrofit.MainApi;
-import com.example.futudoll.retrofit.UserResponse;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class TimerActivity extends Activity {

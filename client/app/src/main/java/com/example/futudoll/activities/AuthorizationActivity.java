@@ -1,7 +1,6 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,26 +11,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.futudoll.R;
 import com.example.futudoll.retrofit.AuthRequest;
 import com.example.futudoll.retrofit.MainApi;
-import com.example.futudoll.retrofit.User;
 import com.example.futudoll.retrofit.UserResponse;
-import com.google.gson.internal.LinkedTreeMap;
 
-import org.json.JSONException;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AuthorizationActivity extends Activity implements View.OnClickListener {
 

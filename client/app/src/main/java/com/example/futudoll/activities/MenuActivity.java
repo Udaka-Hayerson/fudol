@@ -1,4 +1,4 @@
-package com.example.futudoll;
+package com.example.futudoll.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,20 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.futudoll.R;
 import com.example.futudoll.retrofit.MainApi;
 import com.example.futudoll.retrofit.User;
+import com.example.futudoll.todo.todoapp.MainTODOActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MenuActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs";
@@ -101,6 +99,11 @@ public class MenuActivity extends AppCompatActivity {
         Log.e(LOG_TAG, "birthday: " + user.getBirthday());
         intentDieEndBornTimer.putExtra("birthday", user.getBirthday());
         startActivity(intentDieEndBornTimer);
+    }
+
+    public void appTODO(View view) {
+        Intent intentToDo = new Intent(this, MainTODOActivity.class);
+        startActivity(intentToDo);
     }
 
 
