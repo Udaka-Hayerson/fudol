@@ -29,7 +29,6 @@ public class PlayersActivity extends AppCompatActivity {
     PlayersAdapter playersAdapter;
     ListView listView;
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

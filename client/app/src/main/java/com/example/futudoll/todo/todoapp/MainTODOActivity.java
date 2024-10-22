@@ -1,6 +1,8 @@
 package com.example.futudoll.todo.todoapp;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.futudoll.R;
+import com.example.futudoll.activities.MenuActivity;
+import com.example.futudoll.activities.PlayersActivity;
 import com.example.futudoll.todo.todoapp.adapter.TODOAdapter;
 import com.example.futudoll.todo.todoapp.model.ClassTODO;
 import com.example.futudoll.todo.todoapp.model.SubTODO;
@@ -30,13 +34,13 @@ public class MainTODOActivity
     LinearLayoutManager manager;
     static List<ClassTODO> TODOList = new ArrayList<>();
     ClickListener clickListener;
-    private final String TAG = "create_sub";
-//    boolean new_user = true;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_todo);
+        sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         TODORecycler = findViewById(R.id.recycler_todo);
         manager = new LinearLayoutManager(MainTODOActivity.this);
         clickListener = getAdapterClickListener();
@@ -183,47 +187,13 @@ public class MainTODOActivity
             }
         };
     }
-    //       TODO back on menu;
+
+    public void backOnMenuFromTODO(View view) {
+        Intent intentBack = new Intent(this, MenuActivity.class);
+        intentBack.putExtra("token", sharedPreferences.getString("token", "loh"));
+        startActivity(intentBack);
+    }
 }
-//    public void save(){
-//        boolean result = JSONHelper.exportToJSON(this, TODOList);
-//        if(result){
-//            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
-//        }
-//        else{
-//            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
-//        }
-////        new_user = false;
-//    }
-//    public void open(){
-//        TODOList = JSONHelper.importFromJSON(this);
-//        if(TODOList!=null){
-//            updateAdapter();
-//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
-//        }
-//        else{
-//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
-//        }
-////        new_user = false;
-//    }
-//
-//}
-//    private static List<ClassTODO> emptyListGenerator() {
-//        List<ClassTODO> empty_list = new ArrayList<>();
-//        for (int i = 1; i < 20; i++) {
-//            empty_list.add(new ClassTODO(i + " MAIN TITLE", "do TODO - be HAPPY", emptySubListGenerator()));
-//        }
-//        MainTODOActivity.TODOList = empty_list;
-//        return empty_list;
-//    }
-//
-//    private static List<SubTODO> emptySubListGenerator() {
-//        List<SubTODO> empty_sub_list = new ArrayList<>();
-//        for (int j = 1; j < 10; j++) {
-//            empty_sub_list.add(new SubTODO(j + " SUB TITLE", "do SubTODO to complete TODO"));
-//        }
-//        return empty_sub_list;
-//    }
 
 
 

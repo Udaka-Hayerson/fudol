@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ClassTODO {
 
-    boolean new_user = true;
+//    boolean new_user = true;
     private String title;
     private String description;
     private List<SubTODO> subTODOList;
@@ -62,13 +62,13 @@ public class ClassTODO {
     }
 
 
-    public boolean isNew_user() {
-        return new_user;
-    }
-
-    public void setNew_user(boolean new_user) {
-        this.new_user = new_user;
-    }
+//    public boolean isNew_user() {
+//        return new_user;
+//    }
+//
+//    public void setNew_user(boolean new_user) {
+//        this.new_user = new_user;
+//    }
 
     @Override
     public String toString() {

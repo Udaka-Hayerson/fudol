@@ -79,7 +79,6 @@ public class MenuActivity extends AppCompatActivity {
 
     public void gameOfThrones(View view) {
         Intent intentTimer = new Intent(this, PlayersActivity.class);
-//        intentTimer.putExtra("token", token);
         startActivity(intentTimer);
     }
 
