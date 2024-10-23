@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class MenuActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs";
     String token = "";
-    public AdView mAdView;
+//    public AdView mAdView;
     MainApi mainApi;
     User user;
     SharedPreferences sharedPreferences;
@@ -40,7 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = getIntent();
         token = intent.getStringExtra("token");
         getUser();
-        addAd();
+//        addAd();
     }
 
     public void getUser() throws NumberFormatException {
@@ -107,44 +107,44 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-    public void addAd() {
-        mAdView = findViewById(R.id.adView);
-        @SuppressLint("VisibleForTests") AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdImpression() {
-                // Code to be executed when an impression is recorded
-                // for an ad.
-            }
-
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-        });
-    }
+//    public void addAd() {
+//        mAdView = findViewById(R.id.adView);
+//        @SuppressLint("VisibleForTests") AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//
+//        mAdView.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClicked() {
+//                // Code to be executed when the user clicks on an ad.
+//            }
+//
+//            @Override
+//            public void onAdClosed() {
+//                // Code to be executed when the user is about to return
+//                // to the app after tapping on an ad.
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+//                // Code to be executed when an ad request fails.
+//            }
+//
+//            @Override
+//            public void onAdImpression() {
+//                // Code to be executed when an impression is recorded
+//                // for an ad.
+//            }
+//
+//            @Override
+//            public void onAdLoaded() {
+//                // Code to be executed when an ad finishes loading.
+//            }
+//
+//            @Override
+//            public void onAdOpened() {
+//                // Code to be executed when an ad opens an overlay that
+//                // covers the screen.
+//            }
+//        });
+//    }
 }
