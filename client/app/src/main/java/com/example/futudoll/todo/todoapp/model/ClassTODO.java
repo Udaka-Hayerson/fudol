@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ClassTODO {
 
-//    boolean new_user = true;
     private String title;
     private String description;
     private List<SubTODO> subTODOList;

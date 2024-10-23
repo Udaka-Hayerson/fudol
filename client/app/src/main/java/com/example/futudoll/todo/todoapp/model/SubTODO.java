@@ -7,7 +7,7 @@ public class SubTODO {
     private boolean completeSubTODO;
     static int count = 0;
     private int sub_id;
-//    int parent_id;
+//    int parent_id; TODO:
 
     public SubTODO( String sub_title, String sub_description, boolean completeSubTODO) {
         this.sub_title = sub_title;

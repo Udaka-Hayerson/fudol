@@ -4,17 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_blue"
     tools:context=".activities.TimerActivity">
 
     <Button
-        android:id="@+id/btnBackReg"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:text="@string/back_reg"
-        android:textSize="120sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/start_chronometer"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="startChronometer"
+        android:text="start"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pause_chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="pauseChronometer"
+        android:text="  pause  "
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/reset_chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="160dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="resetChronometer"
+        android:text="  reset  "
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/back_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_reg"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:background="@color/blue"
+        android:onClick="backMenu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/work_sec_counter"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="@string/show"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/futudol_coin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/timerView"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/blue"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/futudol_coin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/futudol_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:background="@color/blue"
+        android:text="  fudols  "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/work_sec_counter"
+        app:layout_constraintStart_toEndOf="@+id/work_sec_counter"
+        app:layout_constraintTop_toTopOf="@+id/work_sec_counter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

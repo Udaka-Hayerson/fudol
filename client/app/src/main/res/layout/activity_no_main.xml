@@ -4,31 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainBgColor"
+    android:background="@color/main_blue"
     tools:context=".activities.NoMainActivity">
-
-    <Button
-        android:id="@+id/btnNextAct"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:background="#00BDAFAF"
-        android:onClick="btnNextMethod"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewNext"
-        app:layout_constraintTop_toBottomOf="@+id/textView666"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Button
-        android:id="@+id/btnStartCount"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#00BDAFAF"
-        android:text=""
-        android:onClick="btnStartTimerMethod"
-        app:layout_constraintBottom_toBottomOf="@+id/textView666"
-        app:layout_constraintEnd_toEndOf="@+id/textView666"
-        app:layout_constraintStart_toStartOf="@+id/textView666"
-        app:layout_constraintTop_toTopOf="@+id/textView666"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btnBackAct"
@@ -49,10 +26,14 @@
         android:id="@+id/textView666"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/asideBgColor"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/roundedbutton"
         android:fontFamily="@font/montserrat_bold"
+        android:onClick="btnStartTimerMethod"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/main_you_nowhere"
+        android:textColor="@color/white"
         android:textSize="33sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="7dp"
-        android:background="@color/asideBgColor"
+        android:textColor="@color/white"
+        android:background="@color/blue"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center_horizontal|center_vertical"
         android:textSize="30sp"
@@ -103,7 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:background="@color/asideBgColor"
+        android:textColor="@color/white"
+        android:background="@color/blue"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center_horizontal|center_vertical"
         android:textSize="30sp"
@@ -121,14 +104,6 @@
         app:layout_constraintStart_toStartOf="@+id/btnBackAct"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageViewNext"-->
-<!--        android:layout_width="68dp"-->
-<!--        android:layout_height="68dp"-->
-<!--        android:rotation="180"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView666"-->
-<!--        app:srcCompat="?attr/actionModeCloseDrawable" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
