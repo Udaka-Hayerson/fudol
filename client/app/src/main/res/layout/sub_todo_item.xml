@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/invisible_sub_item">
+    android:id="@+id/invisible_sub_item"
+    android:background="@color/blue">
 <!--    android:visibility="invisible"-->
 
     <androidx.cardview.widget.CardView
@@ -19,23 +20,29 @@
                 android:layout_height="60dp"
                 android:background="@color/black"
                 android:src="@drawable/ic_launcher_foreground"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_toEndOf="@id/img_sub_item"
-                android:padding="12dp"
-                android:orientation="vertical">
+                android:background="@color/main_blue"
+                android:orientation="vertical"
+                android:padding="12dp">
+
                 <TextView
                     android:id="@+id/sub_todo_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="sub todo title"/>
+                    android:text="sub todo title"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/description_sub_todo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description goes here..."/>
+                    android:text="Description goes here..."
+                    android:textColor="@color/white" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
