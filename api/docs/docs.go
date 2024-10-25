@@ -24,7 +24,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/signin": {
+        "/auth/signin": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -51,7 +51,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.SuccessAuthDTO"
+                            "$ref": "#/definitions/handlers.SuccessAuthDTO"
                         }
                     },
                     "400": {
@@ -65,7 +65,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/signup": {
+        "/auth/signup": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -92,7 +92,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.SuccessAuthDTO"
+                            "$ref": "#/definitions/handlers.SuccessAuthDTO"
                         }
                     },
                     "400": {
@@ -106,7 +106,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/timecount/increase": {
+        "/fudol/increase": {
             "patch": {
                 "security": [
                     {
@@ -120,7 +120,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Time count"
+                    "Fudol"
                 ],
                 "summary": "Increase time count",
                 "parameters": [
@@ -145,7 +145,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/timecount/reset": {
+        "/fudol/reset": {
             "patch": {
                 "security": [
                     {
@@ -159,12 +159,83 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Time count"
+                    "Fudol"
                 ],
-                "summary": "reset time count",
+                "summary": "Reset time count",
                 "responses": {
                     "200": {
                         "description": "OK"
+                    }
+                }
+            }
+        },
+        "/todo": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TodoList"
+                ],
+                "summary": "get todo list",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Todo"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TodoList"
+                ],
+                "summary": "add todo",
+                "parameters": [
+                    {
+                        "description": "body request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.TodoCreateDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "invalid body fields.",
+                        "schema": {}
+                    },
+                    "406": {
+                        "description": "parent ID is not esisted / ID is already esists.",
+                        "schema": {}
                     }
                 }
             }
@@ -192,39 +263,9 @@ const docTemplate = `{
                     }
                 }
             }
-        },
-        "/users": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "get user list",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.UserPublic"
-                            }
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {
-        "dto.SuccessAuthDTO": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
-                }
-            }
-        },
         "handlers.IncreaseTimeCountDTO": {
             "type": "object",
             "required": [
@@ -233,6 +274,36 @@ const docTemplate = `{
             "properties": {
                 "count": {
                     "type": "integer"
+                }
+            }
+        },
+        "handlers.SuccessAuthDTO": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.TodoCreateDTO": {
+            "type": "object",
+            "required": [
+                "description",
+                "id",
+                "title"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "parentID": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         },
@@ -254,7 +325,7 @@ const docTemplate = `{
         "handlers.UserSignUpDTO": {
             "type": "object",
             "required": [
-                "expected_salary",
+                "expectedSalary",
                 "login",
                 "nickname",
                 "password"
@@ -263,7 +334,7 @@ const docTemplate = `{
                 "birthday": {
                     "type": "string"
                 },
-                "expected_salary": {
+                "expectedSalary": {
                     "type": "number"
                 },
                 "login": {
@@ -273,6 +344,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Todo": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Todo"
+                    }
+                },
+                "title": {
                     "type": "string"
                 }
             }
@@ -291,9 +382,6 @@ const docTemplate = `{
                 },
                 "nickname": {
                     "type": "string"
-                },
-                "timeCount": {
-                    "type": "integer"
                 }
             }
         }

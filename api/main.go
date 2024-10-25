@@ -6,8 +6,7 @@ import (
 	_ "fudol_api/docs"
 	"fudol_api/handlers"
 	"fudol_api/helpers"
-	"fudol_api/middlewares"
-	"net/http"
+	"fudol_api/router"
 	"os"
 
 	"github.com/go-playground/validator/v10"
@@ -15,7 +14,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
-	echoSwagger "github.com/swaggo/echo-swagger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -70,8 +68,10 @@ func main() {
 
 	h := handlers.Handler{
 		Store: handlers.Store{
-			DB:    client,
-			Users: client.Database("client").Collection("users"),
+			DB:        client,
+			Users:     client.Database("client").Collection("users"),
+			Fudols:    client.Database("client").Collection("fudols"),
+			TodoLists: client.Database("client").Collection("todos"),
 		},
 	}
 
@@ -83,23 +83,12 @@ func main() {
 		},
 	)
 
-	e.GET("/docs/*", echoSwagger.WrapHandler)
+	router.Router(e, &h)
 
-	e.POST("/signup", h.SignUp)
-	e.POST("/signin", h.SignIn)
-	e.GET("/users", h.GetUserPublicList)
-	e.GET("/user", h.GetUserData, middlewares.AuthMiddleware())
-	e.PATCH("/timecount/increase", h.TimeCountIncrease, middlewares.AuthMiddleware())
-	e.PATCH("/timecount/reset", h.TimeCountReset, middlewares.AuthMiddleware())
+	// adm := e.Group("/adm")
 
-	adm := e.Group("/adm")
-
-	adm.GET("/users", h.GetUserList)
-	adm.DELETE("/users", h.RemoveUsers)
-
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Welcome to Fudol API")
-	})
+	// adm.GET("/users", h.GetUserList)
+	// adm.DELETE("/users", h.RemoveUsers)
 
 	e.Logger.Fatal(e.Start(":80"))
 }

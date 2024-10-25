@@ -3,16 +3,18 @@ package handlers
 import (
 	"context"
 	"fmt"
-	"fudol_api/constants"
-	"fudol_api/helpers"
 	"net/http"
 
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type (
+	Fudol struct {
+		Handler
+	}
+
 	IncreaseTimeCountDTO struct {
 		Count int64 `json:"count" validate:"required"`
 	}
@@ -20,7 +22,7 @@ type (
 
 // OpenAPi
 //
-//	@Tags		Time count
+//	@Tags		Fudol
 //	@Summary	Increase time count
 //	@Security	ApiKeyAuth
 //	@Accept		json
@@ -29,7 +31,7 @@ type (
 //	@Param		request	body		IncreaseTimeCountDTO	true	"body request"
 //	@Success	200
 //	@Failure	400	{object}	error	"invalid body fields."
-//	@Router		/timecount/increase [patch]
+//	@Router		/fudol/increase [patch]
 func (h *Handler) TimeCountIncrease(c echo.Context) error {
 	var b IncreaseTimeCountDTO
 
@@ -41,13 +43,12 @@ func (h *Handler) TimeCountIncrease(c echo.Context) error {
 		return err
 	}
 
-	token, _ := c.Get(constants.TokenData).(*jwt.Token)
-	claims, _ := token.Claims.(*helpers.JwtCustomClaims)
-
-	res, err := h.Store.Users.UpdateByID(
+	claims := h.GetTokenClaims(c)
+	_, err := h.Store.Fudols.UpdateOne(
 		context.TODO(),
-		claims.User_id,
-		bson.M{"$inc": bson.D{{Key: "time_count", Value: b.Count}}},
+		bson.M{"UserID": claims.User_id},
+		bson.M{"$inc": bson.M{"timeCount": b.Count}},
+		options.Update().SetUpsert(true),
 	)
 
 	if err != nil {
@@ -55,8 +56,30 @@ func (h *Handler) TimeCountIncrease(c echo.Context) error {
 		c.String(http.StatusInternalServerError, "error during increasing time count")
 	}
 
-	if res.MatchedCount == 0 {
-		c.String(http.StatusInternalServerError, "no matched users by id.")
+	return c.NoContent(http.StatusOK)
+}
+
+// OpenAPi
+//
+//	@Tags		Fudol
+//	@Summary	Reset time count
+//	@Security	ApiKeyAuth
+//	@Accept		json
+//	@Produce	json
+//	@Header		200	{string}	Token	"Bearer"
+//	@Success	200
+//	@Router		/fudol/reset [patch]
+func (h *Handler) TimeCountReset(c echo.Context) error {
+	claims := h.GetTokenClaims(c)
+	_, err := h.Store.Fudols.UpdateOne(
+		context.TODO(),
+		bson.M{"UserID": claims.User_id},
+		bson.M{"$set": bson.D{{Key: "timeCount", Value: 0}}},
+	)
+
+	if err != nil {
+		fmt.Println(err)
+		c.String(http.StatusInternalServerError, "error during reseting time count")
 	}
 
 	return c.NoContent(http.StatusOK)

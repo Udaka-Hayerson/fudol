@@ -1,16 +1,31 @@
 basePath: /
 definitions:
-  dto.SuccessAuthDTO:
-    properties:
-      token:
-        type: string
-    type: object
   handlers.IncreaseTimeCountDTO:
     properties:
       count:
         type: integer
     required:
     - count
+    type: object
+  handlers.SuccessAuthDTO:
+    properties:
+      token:
+        type: string
+    type: object
+  handlers.TodoCreateDTO:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      parentID:
+        type: integer
+      title:
+        type: string
+    required:
+    - description
+    - id
+    - title
     type: object
   handlers.UserSignInDTO:
     properties:
@@ -26,7 +41,7 @@ definitions:
     properties:
       birthday:
         type: string
-      expected_salary:
+      expectedSalary:
         type: number
       login:
         type: string
@@ -35,10 +50,23 @@ definitions:
       password:
         type: string
     required:
-    - expected_salary
+    - expectedSalary
     - login
     - nickname
     - password
+    type: object
+  models.Todo:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/models.Todo'
+        type: array
+      title:
+        type: string
     type: object
   models.UserPublic:
     properties:
@@ -50,8 +78,6 @@ definitions:
         type: string
       nickname:
         type: string
-      timeCount:
-        type: integer
     type: object
 host: http://localhost:8080
 info:
@@ -67,7 +93,7 @@ info:
   title: Fudol OpenAPI doc
   version: 0.0.1
 paths:
-  /signin:
+  /auth/signin:
     post:
       consumes:
       - application/json
@@ -84,7 +110,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.SuccessAuthDTO'
+            $ref: '#/definitions/handlers.SuccessAuthDTO'
         "400":
           description: invalid body fields.
           schema: {}
@@ -94,7 +120,7 @@ paths:
       summary: sign in
       tags:
       - Auth
-  /signup:
+  /auth/signup:
     post:
       consumes:
       - application/json
@@ -111,7 +137,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/dto.SuccessAuthDTO'
+            $ref: '#/definitions/handlers.SuccessAuthDTO'
         "400":
           description: invalid body fields.
           schema: {}
@@ -121,7 +147,7 @@ paths:
       summary: sign up
       tags:
       - Auth
-  /timecount/increase:
+  /fudol/increase:
     patch:
       consumes:
       - application/json
@@ -144,8 +170,8 @@ paths:
       - ApiKeyAuth: []
       summary: Increase time count
       tags:
-      - Time count
-  /timecount/reset:
+      - Fudol
+  /fudol/reset:
     patch:
       consumes:
       - application/json
@@ -156,9 +182,53 @@ paths:
           description: OK
       security:
       - ApiKeyAuth: []
-      summary: reset time count
+      summary: Reset time count
       tags:
-      - Time count
+      - Fudol
+  /todo:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Todo'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: get todo list
+      tags:
+      - TodoList
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: body request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.TodoCreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: invalid body fields.
+          schema: {}
+        "406":
+          description: parent ID is not esisted / ID is already esists.
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: add todo
+      tags:
+      - TodoList
   /user:
     get:
       produces:
@@ -171,20 +241,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: get user data
-      tags:
-      - User
-  /users:
-    get:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.UserPublic'
-            type: array
-      summary: get user list
       tags:
       - User
 securityDefinitions:
