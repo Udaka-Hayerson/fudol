@@ -7,6 +7,7 @@ import (
 	"fudol_api/schemas"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -130,8 +131,46 @@ func (h *TodoList) GetTodoList(c echo.Context) error {
 	return c.JSON(http.StatusOK, results)
 }
 
+// OpenAPi
+//
+//	@Tags		TodoList
+//	@Summary	remove todo
+//	@Accept		json
+//	@Produce	json
+//	@Security	ApiKeyAuth
+//	@Param		id	query		string	false	"todo's ID"
+//	@Header		200	{string}	Token	"Bearer"
+//	@Success	200
+//	@Failure	400	{object}	error	"id param is not provided"
+//	@Router		/todo [delete]
 func (h *TodoList) RemoveTodo(c echo.Context) error {
-	// claims := h.GetTokenClaims(c)
+	claims := h.GetTokenClaims(c)
+	idParam := c.QueryParam("id")
+
+	if idParam == "" {
+		return c.String(http.StatusBadRequest, "id param is not provided")
+	}
+
+	id, errAtoi := strconv.Atoi(idParam)
+
+	if errAtoi != nil {
+		return c.NoContent(http.StatusInternalServerError)
+	}
+
+	_, err := h.Store.TodoLists.DeleteMany(
+		context.TODO(),
+		bson.D{
+			{Key: "userID", Value: claims.User_id},
+			{Key: "$or", Value: bson.A{
+				bson.D{{Key: "_id", Value: id}},
+				bson.D{{Key: "parentID", Value: id}},
+			}},
+		},
+	)
+
+	if err != nil {
+		return c.NoContent(http.StatusInternalServerError)
+	}
 
 	return c.NoContent(http.StatusOK)
 }

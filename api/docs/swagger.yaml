@@ -186,6 +186,27 @@ paths:
       tags:
       - Fudol
   /todo:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: todo's ID
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: id param is not provided
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: remove todo
+      tags:
+      - TodoList
     get:
       consumes:
       - application/json

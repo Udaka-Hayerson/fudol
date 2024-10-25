@@ -238,6 +238,40 @@ const docTemplate = `{
                         "schema": {}
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TodoList"
+                ],
+                "summary": "remove todo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "todo's ID",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "id param is not provided",
+                        "schema": {}
+                    }
+                }
             }
         },
         "/user": {
