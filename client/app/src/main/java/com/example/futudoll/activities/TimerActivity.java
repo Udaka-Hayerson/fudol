@@ -37,8 +37,8 @@ public class TimerActivity extends Activity {
     private boolean running;
     private double salary;
     private String token;
-    int start = 0;
     int count = 0;
+    // TODO: Patch timecount/reset
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

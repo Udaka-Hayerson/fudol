@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void backSignInFromLogIn(View view) {
+        Intent intentSignIn = new Intent(this, AuthorizationActivity.class);
+        startActivity(intentSignIn);
+    }
+
     private boolean validateInputs() {
         if (login.getText().toString().trim().isEmpty()) { // && login.getText().toString().trim().length() < 8
             Toast.makeText(this, "Please enter your login.", Toast.LENGTH_SHORT).show();

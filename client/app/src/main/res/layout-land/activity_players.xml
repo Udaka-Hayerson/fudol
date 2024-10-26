@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         android:onClick="backMenuBack"
         android:text="BACK"
         android:textColor="@color/black"

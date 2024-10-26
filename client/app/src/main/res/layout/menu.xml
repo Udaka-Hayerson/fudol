@@ -33,7 +33,7 @@
         android:onClick="logOut"
         android:text="logOut"
         android:textColor="@color/white"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
         android:onClick="dieEndBornTimer"
         android:text="  die and born timer  "
         android:textColor="@color/white"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +59,7 @@
         android:onClick="gameOfThrones"
         android:text="  time challenge  "
         android:textColor="@color/white"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,7 +72,7 @@
         android:onClick="appTODO"
         android:text="TODO"
         android:textColor="@color/white"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

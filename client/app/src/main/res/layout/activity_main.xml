@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="150dp"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         android:ems="10"
         android:hint="  login"
         android:inputType="text"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_corners"
         android:ems="10"
         android:hint="  password"
         android:inputType="textPassword"
@@ -51,5 +51,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_password" />
+
+    <Button
+        android:id="@+id/back_menu_from_log_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_corners"
+        android:onClick="backSignInFromLogIn"
+        android:text="BACK"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

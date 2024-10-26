@@ -67,9 +67,9 @@ public class PlayersActivity extends AppCompatActivity {
     }
 
     public void backMenuBack(View view) {
-        Intent intentTimer = new Intent(this, MenuActivity.class);
-        intentTimer.putExtra("token", sharedPreferences.getString("token", "loh"));
-        startActivity(intentTimer);
+        Intent intentMenu = new Intent(this, MenuActivity.class);
+        intentMenu.putExtra("token", sharedPreferences.getString("token", "loh"));
+        startActivity(intentMenu);
     }
 
     private List<User> sortUsersByTimeCount(List<User> users) {
