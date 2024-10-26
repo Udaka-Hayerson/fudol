@@ -46,7 +46,7 @@ func (h *Handler) TimeCountIncrease(c echo.Context) error {
 	claims := h.GetTokenClaims(c)
 	_, err := h.Store.Fudols.UpdateOne(
 		context.TODO(),
-		bson.M{"UserID": claims.User_id},
+		bson.M{"userID": claims.User_id},
 		bson.M{"$inc": bson.M{"timeCount": b.Count}},
 		options.Update().SetUpsert(true),
 	)
@@ -73,7 +73,7 @@ func (h *Handler) TimeCountReset(c echo.Context) error {
 	claims := h.GetTokenClaims(c)
 	_, err := h.Store.Fudols.UpdateOne(
 		context.TODO(),
-		bson.M{"UserID": claims.User_id},
+		bson.M{"userID": claims.User_id},
 		bson.M{"$set": bson.D{{Key: "timeCount", Value: 0}}},
 	)
 
@@ -84,3 +84,30 @@ func (h *Handler) TimeCountReset(c echo.Context) error {
 
 	return c.NoContent(http.StatusOK)
 }
+
+// OpenAPi
+//
+//	@Tags		Fudol
+//	@Summary	User rating list
+//	@Security	ApiKeyAuth
+//	@Accept		json
+//	@Produce	json
+//	@Header		200		{string}	Token					"Bearer"
+//	@Success	200	{array}
+//	@Router		/fudol/users [get]
+// func (h *Handler) UserRatingList(c echo.Context) error {
+// 	claims := h.GetTokenClaims(c)
+// 	_, err := h.Store.Fudols.UpdateOne(
+// 		context.TODO(),
+// 		bson.M{"userID": claims.User_id},
+// 		bson.M{"$inc": bson.M{"timeCount": b.Count}},
+// 		options.Update().SetUpsert(true),
+// 	)
+
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		c.String(http.StatusInternalServerError, "error during increasing time count")
+// 	}
+
+// 	return c.NoContent(http.StatusOK)
+// }

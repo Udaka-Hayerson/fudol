@@ -85,10 +85,5 @@ func main() {
 
 	router.Router(e, &h)
 
-	// adm := e.Group("/adm")
-
-	// adm.GET("/users", h.GetUserList)
-	// adm.DELETE("/users", h.RemoveUsers)
-
 	e.Logger.Fatal(e.Start(":80"))
 }

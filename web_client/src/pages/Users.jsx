@@ -70,7 +70,6 @@ const Users = () => {
 								<StyledTableCell>Password</StyledTableCell>
 								<StyledTableCell>Birthday</StyledTableCell>
 								<StyledTableCell>Expected salary</StyledTableCell>
-								<StyledTableCell>Time count</StyledTableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -95,7 +94,6 @@ const Users = () => {
 										{row.birthday || <Typography color="lightgray">empty</Typography>}
 									</StyledTableCell>
 									<StyledTableCell>{row.expectedSalary}</StyledTableCell>
-									<StyledTableCell>{row.timeCount}</StyledTableCell>
 								</StyledTableRow>
 							))}
 						</TableBody>

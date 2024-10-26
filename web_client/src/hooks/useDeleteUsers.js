@@ -10,10 +10,20 @@ export default function useDeleteUsers() {
 			const url = new URL(window.location.origin)
 
 			url.searchParams.append("ids", ids)
-			await fetch(`/api/adm/users?${url.searchParams}`, { method: "DELETE", body: ids })
+			const res = await fetch(`/api/adm/users?${url.searchParams}`, { method: "DELETE", body: ids })
+
+			if (!res.ok) {
+				throw new Error(res.json())
+			}
 		},
-		onSuccess: () => {
+		onSuccess: (d, v) => {
+			const data = queryClient.getQueryData([USER_LIST])
+
 			queryClient.refetchQueries({ queryKey: [USER_LIST] })
+			queryClient.setQueryData(
+				[USER_LIST],
+				data.filter(i => !v.includes(i))
+			)
 		},
 	})
 }

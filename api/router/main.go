@@ -19,4 +19,5 @@ func Router(e *echo.Echo, h *handlers.Handler) {
 	// Users(e, h)
 	Fudol(e, h)
 	TodoList(e, h)
+	Admin(e, h)
 }
