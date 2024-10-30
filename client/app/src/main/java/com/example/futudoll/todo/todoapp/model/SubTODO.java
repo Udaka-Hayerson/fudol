@@ -7,12 +7,13 @@ public class SubTODO {
     private boolean completeSubTODO;
     static int count = 0;
     private int sub_id;
-//    int parent_id; TODO:
+    private int parent_id;
 
-    public SubTODO( String sub_title, String sub_description, boolean completeSubTODO) {
+    public SubTODO( String sub_title, String sub_description, boolean completeSubTODO, int parent_id) {
         this.sub_title = sub_title;
         this.sub_description = sub_description;
         this.completeSubTODO = completeSubTODO;
+        this.parent_id = parent_id;
         this.sub_id = count;
         count++;
     }
@@ -29,6 +30,10 @@ public class SubTODO {
         return sub_description;
     }
 
+    public int getParent_id() {
+        return parent_id;
+    }
+
     public void setSubDescription(String sub_description) {
         this.sub_description = sub_description;
     }
@@ -39,6 +44,10 @@ public class SubTODO {
 
     public void setCompleteSubTODO(boolean completeSubTODO) {
         this.completeSubTODO = completeSubTODO;
+    }
+
+    public void setParent_id(int parent_id){
+        this.parent_id = parent_id;
     }
 
     public int getSubId() {

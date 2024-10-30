@@ -101,6 +101,7 @@ public class MainTODOActivity
     }
 
     public void addNewTODO(String title, String description, List<SubTODO> sub_todo_list) {
+        //TODO: get API TODOList
         List<ClassTODO> todo_list = MainTODOActivity.TODOList;
         todo_list.add(new ClassTODO(title, description, new ArrayList<SubTODO>(), false)); // todo_count
         MainTODOActivity.TODOList = todo_list;
@@ -109,8 +110,9 @@ public class MainTODOActivity
     }
 
     public void addNewSubTODO(String title, String description, int position) {
+        //TODO: get API subTODOList
         List<SubTODO> sub_todo_list = (TODOList.get(position)).getSubTODOList();
-        sub_todo_list.add(new SubTODO(title, description, false));
+        sub_todo_list.add(new SubTODO(title, description, false, (TODOList.get(position)).getId()));
         (TODOList.get(position)).setSubTODOList(sub_todo_list);
 //        save();
         updateAdapter();
