@@ -90,29 +90,25 @@ func (h *TodoList) GetTodoList(c echo.Context) error {
 	cursor, err := h.Store.TodoLists.Aggregate(
 		context.TODO(),
 		mongo.Pipeline{
-			{
-				{
-					Key: "$match",
-					Value: bson.D{
-						{Key: "userID", Value: claims.User_id},
-						{
-							Key:   "parentID",
-							Value: bson.D{{Key: "$exists", Value: false}},
-						},
+			{{
+				Key: "$match",
+				Value: bson.D{
+					{Key: "userID", Value: claims.User_id},
+					{
+						Key:   "parentID",
+						Value: bson.D{{Key: "$exists", Value: false}},
 					},
 				},
-			},
-			{
-				{
-					Key: "$lookup",
-					Value: bson.D{
-						{Key: "from", Value: "todos"},
-						{Key: "localField", Value: "_id"},
-						{Key: "foreignField", Value: "parentID"},
-						{Key: "as", Value: "list"},
-					},
+			}},
+			{{
+				Key: "$lookup",
+				Value: bson.D{
+					{Key: "from", Value: "todos"},
+					{Key: "localField", Value: "_id"},
+					{Key: "foreignField", Value: "parentID"},
+					{Key: "as", Value: "list"},
 				},
-			},
+			}},
 		},
 	)
 

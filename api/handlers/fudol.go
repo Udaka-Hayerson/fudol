@@ -3,10 +3,13 @@ package handlers
 import (
 	"context"
 	"fmt"
+	"fudol_api/models"
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -23,7 +26,31 @@ type (
 // OpenAPi
 //
 //	@Tags		Fudol
-//	@Summary	Increase time count
+//	@Summary	get fudol
+//	@Security	ApiKeyAuth
+//	@Accept		json
+//	@Header		200	{string}	Token	"Bearer"
+//	@Success	200	{object}	models.FudolPublic
+//	@Failure	400	{object}	error "user doesn't have a fudols yet"
+//	@Router		/fudol [get]
+func (h *Handler) GetFudol(c echo.Context) error {
+	claims := h.GetTokenClaims(c)
+
+	res := h.Store.Fudols.FindOne(context.TODO(), bson.D{{Key: "userID", Value: claims.User_id}})
+	var f models.FudolPublic
+
+	if err := res.Decode(&f); err != nil {
+		fmt.Println(err)
+		return c.NoContent(http.StatusNotFound)
+	}
+
+	return c.JSON(http.StatusOK, f)
+}
+
+// OpenAPi
+//
+//	@Tags		Fudol
+//	@Summary	increase time count
 //	@Security	ApiKeyAuth
 //	@Accept		json
 //	@Produce	json
@@ -62,7 +89,7 @@ func (h *Handler) TimeCountIncrease(c echo.Context) error {
 // OpenAPi
 //
 //	@Tags		Fudol
-//	@Summary	Reset time count
+//	@Summary	reset time count
 //	@Security	ApiKeyAuth
 //	@Accept		json
 //	@Produce	json
@@ -88,26 +115,49 @@ func (h *Handler) TimeCountReset(c echo.Context) error {
 // OpenAPi
 //
 //	@Tags		Fudol
-//	@Summary	User rating list
+//	@Summary	user rating list
 //	@Security	ApiKeyAuth
 //	@Accept		json
 //	@Produce	json
-//	@Header		200		{string}	Token					"Bearer"
-//	@Success	200	{array}
+//	@Header		200	{string}	Token	"Bearer"
+//	@Success	200	{array}		models.FudolRating
 //	@Router		/fudol/users [get]
-// func (h *Handler) UserRatingList(c echo.Context) error {
-// 	claims := h.GetTokenClaims(c)
-// 	_, err := h.Store.Fudols.UpdateOne(
-// 		context.TODO(),
-// 		bson.M{"userID": claims.User_id},
-// 		bson.M{"$inc": bson.M{"timeCount": b.Count}},
-// 		options.Update().SetUpsert(true),
-// 	)
+func (h *Handler) UserRatingList(c echo.Context) error {
+	cursor, err := h.Store.Fudols.Aggregate(
+		context.TODO(),
+		mongo.Pipeline{
+			bson.D{{Key: "$match", Value: bson.D{{}}}},
+			{{
+				Key: "$lookup",
+				Value: bson.D{
+					{Key: "from", Value: "users"},
+					{Key: "localField", Value: "userID"},
+					{Key: "foreignField", Value: "_id"},
+					{Key: "as", Value: "user"},
+				},
+			}},
+			{{
+				Key: "$unwind",
+				Value: bson.D{
+					{Key: "path", Value: "$user"},
+					{Key: "preserveNullAndEmptyArrays", Value: true},
+				},
+			}},
+		},
+	)
 
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		c.String(http.StatusInternalServerError, "error during increasing time count")
-// 	}
+	if err != nil {
+		fmt.Println(err)
+		c.String(http.StatusInternalServerError, "error during increasing time count")
+	}
 
-// 	return c.NoContent(http.StatusOK)
-// }
+	defer cursor.Close(context.TODO())
+
+	var results []models.FudolRating
+
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		log.Fatal(err)
+	}
+
+	return c.JSON(http.StatusOK, results)
+}

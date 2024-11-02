@@ -55,6 +55,25 @@ definitions:
     - nickname
     - password
     type: object
+  models.FudolPublic:
+    properties:
+      timeCount:
+        type: integer
+    type: object
+  models.FudolRating:
+    properties:
+      timeCount:
+        type: integer
+      user:
+        $ref: '#/definitions/models.FudolRatingUser'
+    type: object
+  models.FudolRatingUser:
+    properties:
+      id:
+        type: string
+      nickname:
+        type: string
+    type: object
   models.Todo:
     properties:
       description:
@@ -147,6 +166,23 @@ paths:
       summary: sign up
       tags:
       - Auth
+  /fudol:
+    get:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FudolPublic'
+        "400":
+          description: user doesn't have a fudols yet
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get fudol
+      tags:
+      - Fudol
   /fudol/increase:
     patch:
       consumes:
@@ -168,7 +204,7 @@ paths:
           schema: {}
       security:
       - ApiKeyAuth: []
-      summary: Increase time count
+      summary: increase time count
       tags:
       - Fudol
   /fudol/reset:
@@ -182,7 +218,25 @@ paths:
           description: OK
       security:
       - ApiKeyAuth: []
-      summary: Reset time count
+      summary: reset time count
+      tags:
+      - Fudol
+  /fudol/users:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FudolRating'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: user rating list
       tags:
       - Fudol
   /todo:

@@ -16,7 +16,6 @@ func Router(e *echo.Echo, h *handlers.Handler) {
 
 	Auth(e, h)
 	User(e, h)
-	// Users(e, h)
 	Fudol(e, h)
 	TodoList(e, h)
 	Admin(e, h)

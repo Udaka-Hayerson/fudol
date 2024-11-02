@@ -8,11 +8,3 @@ type UserPublic struct {
 	Birthday        string             `json:"birthday"`
 	Expected_salary float64            `json:"expectedSalary"`
 }
-
-type UserPrivate struct {
-	UserPublic `bson:",inline"`
-	TodoList   []Todo `json:"todoList"`
-	Fudol      Fudol  `json:"fudol"`
-	Login      string `json:"login"`
-	Password   string `json:"password"`
-}

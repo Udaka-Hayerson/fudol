@@ -106,6 +106,34 @@ const docTemplate = `{
                 }
             }
         },
+        "/fudol": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fudol"
+                ],
+                "summary": "get fudol",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FudolPublic"
+                        }
+                    },
+                    "400": {
+                        "description": "user doesn't have a fudols yet",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/fudol/increase": {
             "patch": {
                 "security": [
@@ -122,7 +150,7 @@ const docTemplate = `{
                 "tags": [
                     "Fudol"
                 ],
-                "summary": "Increase time count",
+                "summary": "increase time count",
                 "parameters": [
                     {
                         "description": "body request",
@@ -161,10 +189,40 @@ const docTemplate = `{
                 "tags": [
                     "Fudol"
                 ],
-                "summary": "Reset time count",
+                "summary": "reset time count",
                 "responses": {
                     "200": {
                         "description": "OK"
+                    }
+                }
+            }
+        },
+        "/fudol/users": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fudol"
+                ],
+                "summary": "user rating list",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FudolRating"
+                            }
+                        }
                     }
                 }
             }
@@ -378,6 +436,36 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FudolPublic": {
+            "type": "object",
+            "properties": {
+                "timeCount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.FudolRating": {
+            "type": "object",
+            "properties": {
+                "timeCount": {
+                    "type": "integer"
+                },
+                "user": {
+                    "$ref": "#/definitions/models.FudolRatingUser"
+                }
+            }
+        },
+        "models.FudolRatingUser": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 }
             }

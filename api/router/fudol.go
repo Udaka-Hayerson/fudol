@@ -15,5 +15,6 @@ func Fudol(e *echo.Echo, handler *handlers.Handler) {
 
 	f.PATCH("/increase", h.TimeCountIncrease)
 	f.PATCH("/reset", h.TimeCountReset)
-	// f.GET("/users", h.UserRatingList)
+	f.GET("/users", h.UserRatingList)
+	f.GET("", h.GetFudol)
 }
