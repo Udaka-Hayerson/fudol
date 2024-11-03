@@ -120,6 +120,7 @@ public class MainTODOActivity
     }
 
     public void updateAdapter() {
+        // TODO: get list from API
         todoAdapter = new TODOAdapter(TODOList, this, clickListener);
         TODORecycler.setAdapter(todoAdapter);
         TODORecycler.setLayoutManager(manager);
