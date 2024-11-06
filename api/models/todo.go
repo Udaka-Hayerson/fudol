@@ -5,4 +5,5 @@ type Todo struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	List        []Todo `json:"list"`
+	IsCompleted bool   `json:"isCompleted"`
 }

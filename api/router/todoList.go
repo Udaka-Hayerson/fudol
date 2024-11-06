@@ -16,4 +16,5 @@ func TodoList(e *echo.Echo, handler *handlers.Handler) {
 	t.POST("", h.PostTodo)
 	t.GET("", h.GetTodoList)
 	t.DELETE("", h.RemoveTodo)
+	t.PATCH("/completed", h.SetCompleted)
 }

@@ -17,8 +17,10 @@ definitions:
       description:
         type: string
       id:
+        description: new todo ID
         type: integer
       parentID:
+        description: todo parent ID
         type: integer
       title:
         type: string
@@ -26,6 +28,17 @@ definitions:
     - description
     - id
     - title
+    type: object
+  handlers.TodoSetCompletedDTO:
+    properties:
+      id:
+        description: todo ID
+        type: integer
+      isCompleted:
+        type: boolean
+    required:
+    - id
+    - isCompleted
     type: object
   handlers.UserSignInDTO:
     properties:
@@ -80,6 +93,8 @@ definitions:
         type: string
       id:
         type: integer
+      isCompleted:
+        type: boolean
       list:
         items:
           $ref: '#/definitions/models.Todo'
@@ -302,6 +317,33 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: add todo
+      tags:
+      - TodoList
+  /todo/completed:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: body request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.TodoSetCompletedDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: invalid body fields.
+          schema: {}
+        "406":
+          description: todo id doesn't exist / this todo belongs to another user
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: set completed state
       tags:
       - TodoList
   /user:

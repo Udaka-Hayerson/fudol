@@ -20,10 +20,15 @@ type (
 	}
 
 	TodoCreateDTO struct {
-		ID          schemas.TodoID `json:"id" validate:"required"`
+		ID          schemas.TodoID `json:"id" validate:"required"` // new todo ID
 		Title       string         `json:"title" validate:"required"`
 		Description string         `json:"description" validate:"required"`
-		ParentID    schemas.TodoID `json:"parentID"`
+		ParentID    schemas.TodoID `json:"parentID"` // todo parent ID
+	}
+
+	TodoSetCompletedDTO struct {
+		ID          schemas.TodoID `json:"id" validate:"required"` // todo ID
+		IsCompleted bool           `json:"isCompleted" validate:"required"`
 	}
 )
 
@@ -70,6 +75,55 @@ func (h *TodoList) PostTodo(c echo.Context) error {
 	if _, err := h.Store.TodoLists.InsertOne(context.TODO(), newTodo); err != nil {
 		fmt.Println(err)
 		return c.String(http.StatusNotAcceptable, "id is alreadt exists")
+	}
+
+	return c.NoContent(http.StatusOK)
+}
+
+// OpenAPi
+//
+//	@Tags		TodoList
+//	@Summary	set completed state
+//	@Accept		json
+//	@Produce	json
+//	@Security	ApiKeyAuth
+//	@Header		200		{string}	Token				"Bearer"
+//	@Param		request	body		TodoSetCompletedDTO	true	"body request"
+//	@Success	200
+//	@Failure	400	{object}	error	"invalid body fields."
+//	@Failure	406	{object}	error	"todo id doesn't exist / this todo belongs to another user"
+//	@Router		/todo/completed [patch]
+func (h *TodoList) SetCompleted(c echo.Context) error {
+	var b TodoSetCompletedDTO
+
+	if err := c.Bind(&b); err != nil {
+		fmt.Println(err)
+		return c.String(http.StatusBadRequest, "Invalid body fields")
+	}
+
+	if err := c.Validate(b); err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+
+	claims := h.GetTokenClaims(c)
+	res, err := h.Store.TodoLists.UpdateOne(
+		context.TODO(),
+		bson.D{
+			{Key: "_id", Value: b.ID},
+			{Key: "userID", Value: claims.User_id},
+		},
+		bson.D{{
+			Key:   "$set",
+			Value: bson.D{{Key: "isCompleted", Value: b.IsCompleted}},
+		}},
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.MatchedCount == 0 || res.ModifiedCount == 0 {
+		return c.String(http.StatusNotAcceptable, "todo id doesn't exist or this todo belongs to another user")
 	}
 
 	return c.NoContent(http.StatusOK)

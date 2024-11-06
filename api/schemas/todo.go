@@ -10,4 +10,5 @@ type Todo struct {
 	Description string             `bson:"description" json:"description"`
 	ParentID    TodoID             `bson:"parentID,omitempty" json:"parentID"`
 	UserID      primitive.ObjectID `bson:"userID" json:"userID"`
+	IsCompleted bool               `bson:"isCompleted" json:"isCompleted"`
 }

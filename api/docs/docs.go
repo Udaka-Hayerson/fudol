@@ -332,6 +332,49 @@ const docTemplate = `{
                 }
             }
         },
+        "/todo/completed": {
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TodoList"
+                ],
+                "summary": "set completed state",
+                "parameters": [
+                    {
+                        "description": "body request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.TodoSetCompletedDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "invalid body fields.",
+                        "schema": {}
+                    },
+                    "406": {
+                        "description": "todo id doesn't exist / this todo belongs to another user",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "security": [
@@ -389,13 +432,31 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
+                    "description": "new todo ID",
                     "type": "integer"
                 },
                 "parentID": {
+                    "description": "todo parent ID",
                     "type": "integer"
                 },
                 "title": {
                     "type": "string"
+                }
+            }
+        },
+        "handlers.TodoSetCompletedDTO": {
+            "type": "object",
+            "required": [
+                "id",
+                "isCompleted"
+            ],
+            "properties": {
+                "id": {
+                    "description": "todo ID",
+                    "type": "integer"
+                },
+                "isCompleted": {
+                    "type": "boolean"
                 }
             }
         },
@@ -478,6 +539,9 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "isCompleted": {
+                    "type": "boolean"
                 },
                 "list": {
                     "type": "array",
