@@ -15,22 +15,25 @@ import retrofit2.http.POST;
 
 public interface MainApi {
 
-    @GET("users")
-    Call<List<User>> getUsers();
-
-    @POST("/signup")
+    //auth
+    @POST("/auth/signup")
     Call<UserResponse> signUp(@Body AuthRequest authRequest);
 
-    @POST("/signin")
+    @POST("/auth/signin")
     Call<UserResponse> signIn(@Body UserSignInDTO userSignInDTO);
 
-    @GET("/user")
-    Call<User> getUserByToken(@Header("Authorization") String token);
+    //fudol
+    @GET("/fudol")
+    Call<Fudol> getFudol(@Header("Authorization") String token);
 
-    @PATCH("/timecount/increase")
+    @GET("/fudol/users")
+    Call<List<UserChalange>> getUsers(@Header("Authorization") String token);
+    //todo public user [{"timeCount":7,"user":{"id":"672fa930db08248dbc982148","nickname":"nick"}}]
+
+    @PATCH("/fudol/increase")
     Call<ResponseBody> increaseTimeCount(@Header("Authorization") String token, @Body IncreaseTimeCountDTO increaseTimeCountDTO);
 
-    @PATCH("/timecount/reset")
+    @PATCH("/fudol/reset")
     Call<ResponseBody> resetTimeCount();
 
     // appTODO
@@ -38,9 +41,17 @@ public interface MainApi {
     Call<List<ClassTODO>> getToDoLIst(@Header("Authorization") String token);
 
     @POST("/todo")
-    Call<ResponseBody> addToDo(@Header("Authorization") String token); //addDTO
+    Call<ResponseBody> addToDo(@Header("Authorization") String token, @Body RequestTodoDTO requestTodoDTO);
 
     @DELETE("/todo")
-    Call<ResponseBody> deleteToDo(@Header("Authorization") String token); //todo id or subtodo id
+    Call<ResponseBody> deleteToDo(@Header("Authorization") String token, @Body DeleteTodoDTO deleteTodoDTO);
+
+    @PATCH("/todo/completed")
+    Call<ResponseBody> setCompletedState(@Header("Authorization") String token, @Body CompletedTodoDTO completedTodoDTO);
+
+
+    //user
+    @GET("/user")
+    Call<User> getUserByToken(@Header("Authorization") String token);
 
 }

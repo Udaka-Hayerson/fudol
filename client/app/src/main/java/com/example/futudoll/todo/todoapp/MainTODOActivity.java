@@ -149,6 +149,12 @@ public class MainTODOActivity
         if (complete) completeSubTODO(position, sub_todo_position);
     }
 
+    public void backOnMenuFromTODO(View view) {
+        Intent intentBack = new Intent(this, MenuActivity.class);
+        intentBack.putExtra("token", sharedPreferences.getString("token", "loh"));
+        startActivity(intentBack);
+    }
+
     @NonNull
     private ClickListener getAdapterClickListener() {
         return new ClickListener() {
@@ -191,11 +197,6 @@ public class MainTODOActivity
         };
     }
 
-    public void backOnMenuFromTODO(View view) {
-        Intent intentBack = new Intent(this, MenuActivity.class);
-        intentBack.putExtra("token", sharedPreferences.getString("token", "loh"));
-        startActivity(intentBack);
-    }
 }
 
 

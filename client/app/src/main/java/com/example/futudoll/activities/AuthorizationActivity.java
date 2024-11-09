@@ -147,48 +147,5 @@ public class AuthorizationActivity extends Activity implements View.OnClickListe
         startActivity(intent);
     }
 
-
-//    public void saveData(String token) {
-//        FileOutputStream fileOutput = null;
-//        try {
-//            fileOutput = openFileOutput(FILE_NAME, MODE_PRIVATE); //MODE_APPEND
-//            fileOutput.write(token.getBytes());
-//            Toast.makeText(this, "We are save \n your token", Toast.LENGTH_LONG).show();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            try {
-//                if (fileOutput != null)
-//                    fileOutput.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//
-//    public void openData(View view) {
-//        FileInputStream fileInput = null;
-//        try {
-//            fileInput = openFileInput(FILE_NAME);
-//            byte[] bytes = new byte[1024];
-//            fileInput.read(bytes);
-//            String text = new String(bytes);
-////            textShow.setText(text);
-//            fileInput.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (fileInput != null)
-//                    fileInput.close();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }
 

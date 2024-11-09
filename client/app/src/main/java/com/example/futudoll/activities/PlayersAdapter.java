@@ -8,16 +8,17 @@ import android.widget.TextView;
 
 import com.example.futudoll.R;
 import com.example.futudoll.retrofit.User;
+import com.example.futudoll.retrofit.UserChalange;
 
 import java.util.List;
 
 public class PlayersAdapter extends BaseAdapter {
 
     private int place = 1;
-    private List<User> users;
+    private List<UserChalange> users;
     private LayoutInflater layoutInflater;
 
-    public PlayersAdapter(List<User> users, LayoutInflater layoutInflater) {
+    public PlayersAdapter(List<UserChalange> users, LayoutInflater layoutInflater) {
         this.users = users;
         this.layoutInflater = layoutInflater;
     }

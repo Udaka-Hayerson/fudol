@@ -5,14 +5,14 @@ public class AuthRequest {
     String birthday;
     String login;
     String password;
-    double expected_salary;
+    double expectedSalary;
 
-    public AuthRequest(String nickname, String birthday, String login, String password, double expected_salary) {
+    public AuthRequest(String nickname, String birthday, String login, String password, double expectedSalary) {
         this.nickname = nickname;
         this.birthday = birthday;
         this.login = login;
         this.password = password;
-        this.expected_salary = expected_salary;
+        this.expectedSalary = expectedSalary;
     }
 }
 

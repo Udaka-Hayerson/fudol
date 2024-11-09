@@ -1,6 +1,7 @@
 package com.example.futudoll.todo.todoapp.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ClassTODO {
 
@@ -9,7 +10,8 @@ public class ClassTODO {
     private List<SubTODO> subTODOList;
     private boolean completeTODO;
     static int count = 0;
-    private int id = 0;
+    private int id = 0; // todo: генерація id через hashCode
+//    private int parent_id; todo: зробить одну модель з ClassTODO і SubTODO
 
     public ClassTODO(String title, String description, List<SubTODO> subTODOList, boolean completeTODO) {
         this.title = title;
@@ -78,6 +80,19 @@ public class ClassTODO {
                 ", completeTODO=" + completeTODO +
                 ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClassTODO classTODO = (ClassTODO) o;
+        return completeTODO == classTODO.completeTODO && id == classTODO.id && title.equals(classTODO.title) && description.equals(classTODO.description) && subTODOList.equals(classTODO.subTODOList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, subTODOList, completeTODO, id);
     }
 }
 
