@@ -1,9 +1,10 @@
 # Fudol
 
 ###### Make money, stop resting
-
-<img height="300" src="./assets/logo_1.jpg" />
-<img height="300" src="./assets/logo_2.jpg" />
+<p float="left">
+    <img height="300" src="./assets/logo_1.jpg" />
+    <img height="300" src="./assets/logo_2.jpg" style="float:right;" />
+</p>
 
 ## Docs
 
