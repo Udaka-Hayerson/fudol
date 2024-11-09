@@ -19,7 +19,6 @@ type User struct {
 //	@Summary	get user data
 //	@Produce	json
 //	@Security	ApiKeyAuth
-//	@Header		200	{string}	Token	"Bearer"
 //	@Success	200	{object}	models.UserPublic
 //	@Router		/user [get]
 func (h *User) GetUserData(c echo.Context) error {

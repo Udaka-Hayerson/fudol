@@ -29,9 +29,8 @@ type (
 //	@Summary	get fudol
 //	@Security	ApiKeyAuth
 //	@Accept		json
-//	@Header		200	{string}	Token	"Bearer"
 //	@Success	200	{object}	models.FudolPublic
-//	@Failure	400	{object}	error "user doesn't have a fudols yet"
+//	@Failure	400	{object}	error	"user doesn't have a fudols yet"
 //	@Router		/fudol [get]
 func (h *Handler) GetFudol(c echo.Context) error {
 	claims := h.GetTokenClaims(c)
@@ -54,8 +53,7 @@ func (h *Handler) GetFudol(c echo.Context) error {
 //	@Security	ApiKeyAuth
 //	@Accept		json
 //	@Produce	json
-//	@Header		200		{string}	Token					"Bearer"
-//	@Param		request	body		IncreaseTimeCountDTO	true	"body request"
+//	@Param		request	body	IncreaseTimeCountDTO	true	"body request"
 //	@Success	200
 //	@Failure	400	{object}	error	"invalid body fields."
 //	@Router		/fudol/increase [patch]
@@ -93,7 +91,6 @@ func (h *Handler) TimeCountIncrease(c echo.Context) error {
 //	@Security	ApiKeyAuth
 //	@Accept		json
 //	@Produce	json
-//	@Header		200	{string}	Token	"Bearer"
 //	@Success	200
 //	@Router		/fudol/reset [patch]
 func (h *Handler) TimeCountReset(c echo.Context) error {
@@ -119,8 +116,7 @@ func (h *Handler) TimeCountReset(c echo.Context) error {
 //	@Security	ApiKeyAuth
 //	@Accept		json
 //	@Produce	json
-//	@Header		200	{string}	Token	"Bearer"
-//	@Success	200	{array}		models.FudolRating
+//	@Success	200	{array}	models.FudolRating
 //	@Router		/fudol/users [get]
 func (h *Handler) UserRatingList(c echo.Context) error {
 	cursor, err := h.Store.Fudols.Aggregate(

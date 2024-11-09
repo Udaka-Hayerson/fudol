@@ -29,6 +29,14 @@ definitions:
     - id
     - title
     type: object
+  handlers.TodoRemoveDTO:
+    properties:
+      id:
+        description: todo ID
+        type: integer
+    required:
+    - id
+    type: object
   handlers.TodoSetCompletedDTO:
     properties:
       id:
@@ -260,16 +268,17 @@ paths:
       - application/json
       parameters:
       - description: todo's ID
-        in: query
-        name: id
-        type: string
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/handlers.TodoRemoveDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
         "400":
-          description: id param is not provided
+          description: invalid request body
           schema: {}
       security:
       - ApiKeyAuth: []

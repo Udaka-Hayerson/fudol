@@ -7,7 +7,6 @@ import (
 	"fudol_api/schemas"
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -30,6 +29,10 @@ type (
 		ID          schemas.TodoID `json:"id" validate:"required"` // todo ID
 		IsCompleted bool           `json:"isCompleted" validate:"required"`
 	}
+
+	TodoRemoveDTO struct {
+		ID schemas.TodoID `json:"id" validate:"required"` // todo ID
+	}
 )
 
 // OpenAPi
@@ -40,7 +43,6 @@ type (
 //	@Produce	json
 //	@Param		request	body	TodoCreateDTO	true	"body request"
 //	@Security	ApiKeyAuth
-//	@Header		200	{string}	Token	"Bearer"
 //	@Success	201
 //	@Failure	400	{object}	error	"invalid body fields."
 //	@Failure	406	{object}	error	"parent ID is not esisted / ID is already esists."
@@ -87,8 +89,7 @@ func (h *TodoList) PostTodo(c echo.Context) error {
 //	@Accept		json
 //	@Produce	json
 //	@Security	ApiKeyAuth
-//	@Header		200		{string}	Token				"Bearer"
-//	@Param		request	body		TodoSetCompletedDTO	true	"body request"
+//	@Param		request	body	TodoSetCompletedDTO	true	"body request"
 //	@Success	200
 //	@Failure	400	{object}	error	"invalid body fields."
 //	@Failure	406	{object}	error	"todo id doesn't exist / this todo belongs to another user"
@@ -136,8 +137,7 @@ func (h *TodoList) SetCompleted(c echo.Context) error {
 //	@Accept		json
 //	@Produce	json
 //	@Security	ApiKeyAuth
-//	@Header		200	{string}	Token	"Bearer"
-//	@Success	200	{array}		models.Todo
+//	@Success	200	{array}	models.Todo
 //	@Router		/todo [get]
 func (h *TodoList) GetTodoList(c echo.Context) error {
 	claims := h.GetTokenClaims(c)
@@ -188,32 +188,30 @@ func (h *TodoList) GetTodoList(c echo.Context) error {
 //	@Accept		json
 //	@Produce	json
 //	@Security	ApiKeyAuth
-//	@Param		id	query		string	false	"todo's ID"
-//	@Header		200	{string}	Token	"Bearer"
+//	@Param		request	body	TodoRemoveDTO	false	"todo's ID"
 //	@Success	200
-//	@Failure	400	{object}	error	"id param is not provided"
+//	@Failure	400	{object}	error	"invalid request body"
 //	@Router		/todo [delete]
 func (h *TodoList) RemoveTodo(c echo.Context) error {
+	var b TodoRemoveDTO
+
+	if err := c.Bind(&b); err != nil {
+		return c.String(http.StatusBadRequest, "invalid request body")
+	}
+
+	if err := c.Validate(b); err != nil {
+		return c.String(http.StatusBadRequest, "invalid request body")
+	}
+
 	claims := h.GetTokenClaims(c)
-	idParam := c.QueryParam("id")
-
-	if idParam == "" {
-		return c.String(http.StatusBadRequest, "id param is not provided")
-	}
-
-	id, errAtoi := strconv.Atoi(idParam)
-
-	if errAtoi != nil {
-		return c.NoContent(http.StatusInternalServerError)
-	}
 
 	_, err := h.Store.TodoLists.DeleteMany(
 		context.TODO(),
 		bson.D{
 			{Key: "userID", Value: claims.User_id},
 			{Key: "$or", Value: bson.A{
-				bson.D{{Key: "_id", Value: id}},
-				bson.D{{Key: "parentID", Value: id}},
+				bson.D{{Key: "_id", Value: b.ID}},
+				bson.D{{Key: "parentID", Value: b.ID}},
 			}},
 		},
 	)

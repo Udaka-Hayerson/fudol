@@ -315,10 +315,12 @@ const docTemplate = `{
                 "summary": "remove todo",
                 "parameters": [
                     {
-                        "type": "string",
                         "description": "todo's ID",
-                        "name": "id",
-                        "in": "query"
+                        "name": "request",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.TodoRemoveDTO"
+                        }
                     }
                 ],
                 "responses": {
@@ -326,7 +328,7 @@ const docTemplate = `{
                         "description": "OK"
                     },
                     "400": {
-                        "description": "id param is not provided",
+                        "description": "invalid request body",
                         "schema": {}
                     }
                 }
@@ -441,6 +443,18 @@ const docTemplate = `{
                 },
                 "title": {
                     "type": "string"
+                }
+            }
+        },
+        "handlers.TodoRemoveDTO": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "todo ID",
+                    "type": "integer"
                 }
             }
         },
