@@ -68,6 +68,7 @@ public class PlayersActivity extends AppCompatActivity {
     }
 
     public void backMenuBack(View view) {
+        Log.e(LOG_TAG, "back menu");
         Intent intentMenu = new Intent(this, MenuActivity.class);
         intentMenu.putExtra("token", sharedPreferences.getString("token", "loh"));
         startActivity(intentMenu);
