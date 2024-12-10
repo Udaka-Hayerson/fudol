@@ -1,10 +1,10 @@
 package com.example.futudoll.retrofit;
 
-public class UserChalange {
+public class UserChallenge {
     private int timeCount;
     private UserPreview user;
 
-    public UserChalange(int timeCount, UserPreview user) {
+    public UserChallenge(int timeCount, UserPreview user) {
         this.timeCount = timeCount;
         this.user = user;
     }

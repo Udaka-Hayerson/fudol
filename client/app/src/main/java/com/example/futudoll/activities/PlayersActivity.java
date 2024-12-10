@@ -13,8 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.futudoll.R;
 import com.example.futudoll.retrofit.MainApi;
-import com.example.futudoll.retrofit.User;
-import com.example.futudoll.retrofit.UserChalange;
+import com.example.futudoll.retrofit.UserChallenge;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class PlayersActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs";
     MainApi mainApi;
     LayoutInflater layoutInflater;
-    List<UserChalange> users;
+    List<UserChallenge> users;
     PlayersAdapter playersAdapter;
     ListView listView;
     SharedPreferences sharedPreferences;
@@ -40,10 +39,10 @@ public class PlayersActivity extends AppCompatActivity {
         mainApi = Utils.retrofitInstance(this);
 
         layoutInflater = getLayoutInflater();
-        Call<List<UserChalange>> call = mainApi.getUsers("Bearer " + sharedPreferences.getString("token", "loh"));
-        call.enqueue(new Callback<List<UserChalange>>() {
+        Call<List<UserChallenge>> call = mainApi.getUsers("Bearer " + sharedPreferences.getString("token", "loh"));
+        call.enqueue(new Callback<List<UserChallenge>>() {
             @Override
-            public void onResponse(Call<List<UserChalange>> call, Response<List<UserChalange>> response){
+            public void onResponse(Call<List<UserChallenge>> call, Response<List<UserChallenge>> response){
                 if(response.isSuccessful()){
                     Log.e(LOG_TAG, " menu user " + response.body());
                     users = response.body(); // todo
@@ -60,7 +59,7 @@ public class PlayersActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<UserChalange>> call, Throwable t) {
+            public void onFailure(Call<List<UserChallenge>> call, Throwable t) {
                 Log.e(LOG_TAG, "API call failed: " + t.getMessage());
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -74,7 +73,8 @@ public class PlayersActivity extends AppCompatActivity {
         startActivity(intentMenu);
     }
 
-    private List<UserChalange> sortUsersByTimeCount(List<UserChalange> users) { //todo:
+    private List<UserChallenge> sortUsersByTimeCount(List<UserChallenge> users) { //todo:
+        Log.e(LOG_TAG, "users " + users);
         int next_count = 0;
         int count = 0;
         for (int j = 0; j < users.size(); j++) {
@@ -86,7 +86,7 @@ public class PlayersActivity extends AppCompatActivity {
                     next_count = (users.get(i + 1)).getTimeCount();
                 }
                 if(next_count > count){
-                    UserChalange user = users.get(i);
+                    UserChallenge user = users.get(i);
                     users.set(i, users.get(i + 1));
                     users.set(i + 1, user);
                 }

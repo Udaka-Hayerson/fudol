@@ -27,7 +27,7 @@ public interface MainApi {
     Call<Fudol> getFudol(@Header("Authorization") String token);
 
     @GET("/fudol/users")
-    Call<List<UserChalange>> getUsers(@Header("Authorization") String token);
+    Call<List<UserChallenge>> getUsers(@Header("Authorization") String token);
     //todo public user [{"timeCount":7,"user":{"id":"672fa930db08248dbc982148","nickname":"nick"}}]
 
     @PATCH("/fudol/increase")

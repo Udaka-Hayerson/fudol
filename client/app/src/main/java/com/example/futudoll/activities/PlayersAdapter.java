@@ -7,18 +7,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.futudoll.R;
-import com.example.futudoll.retrofit.User;
-import com.example.futudoll.retrofit.UserChalange;
+import com.example.futudoll.retrofit.UserChallenge;
 
 import java.util.List;
 
 public class PlayersAdapter extends BaseAdapter {
 
     private int place = 1;
-    private List<UserChalange> users;
+    private List<UserChallenge> users;
     private LayoutInflater layoutInflater;
 
-    public PlayersAdapter(List<UserChalange> users, LayoutInflater layoutInflater) {
+    public PlayersAdapter(List<UserChallenge> users, LayoutInflater layoutInflater) {
         this.users = users;
         this.layoutInflater = layoutInflater;
     }
@@ -44,13 +43,13 @@ public class PlayersAdapter extends BaseAdapter {
         if(view == null) {
             view = layoutInflater.inflate(R.layout.player_item, parent, false);
         }
-        User user = (User) getItem(position);
+        UserChallenge user = (UserChallenge) getItem(position);
 
         TextView nickname = (TextView) view.findViewById(R.id.nickname);
         TextView time_count = (TextView) view.findViewById(R.id.time_count);
 
 
-        nickname.setText(place + " " + user.getNickname());
+        nickname.setText(place + " " + user.getUser().getNickname());
         time_count.setText("score: " + user.getTimeCount());
         place++;
 

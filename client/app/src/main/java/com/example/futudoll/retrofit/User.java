@@ -11,20 +11,14 @@ public class User implements Serializable {
     private String nickname;
     @SerializedName("birthday")
     private String birthday;
-    @SerializedName("token")
-    private String token;
     @SerializedName("expectedSalary")
     private double expectedSalary;
-    @SerializedName("timeCount")
-    private int timeCount;
 
-    public User(String id, String nickname, String birthday, String token, double expectedSalary, int timeCount) {
+    public User(String id, String nickname, String birthday, double expectedSalary) {
         this.id = id;
         this.nickname = nickname;
         this.birthday = birthday;
-        this.token = token;
         this.expectedSalary = expectedSalary;
-        this.timeCount = timeCount;
     }
 
     public String getId() {
@@ -39,17 +33,10 @@ public class User implements Serializable {
         return birthday;
     }
 
-    public String getToken() {
-        return token;
-    }
-
     public double getExpectedSalary() {
         return expectedSalary;
     }
 
-    public int getTimeCount() {
-        return timeCount;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -63,16 +50,9 @@ public class User implements Serializable {
         this.birthday = birthday;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public void setExpectedSalary(double expectedSalary) {
         this.expectedSalary = expectedSalary;
     }
 
-    public void setTimeCount(int timeCount) {
-        this.timeCount = timeCount;
-    }
 
 }
