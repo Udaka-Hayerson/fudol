@@ -48,10 +48,16 @@ func (h *Admin) RemoveUsers(c echo.Context) error {
 		ids = append(ids, r)
 	}
 
-	_, err := h.Store.Users.DeleteMany(context.TODO(), bson.M{"_id": bson.M{"$in": ids}})
+	_, userErr := h.Store.Users.DeleteMany(context.TODO(), bson.M{"_id": bson.M{"$in": ids}})
 
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("%v", err))
+	if userErr != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("%v", userErr))
+	}
+
+	_, fudolErr := h.Store.Fudols.DeleteMany(context.TODO(), bson.M{"userID": bson.M{"$in": ids}})
+
+	if fudolErr != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("%v", fudolErr))
 	}
 
 	return c.NoContent(http.StatusOK)
