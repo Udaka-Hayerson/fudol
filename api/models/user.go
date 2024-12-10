@@ -6,5 +6,5 @@ type UserPublic struct {
 	ID              primitive.ObjectID `bson:"_id" json:"id"`
 	Nickname        string             `bson:"nickname" json:"nickname"`
 	Birthday        string             `json:"birthday"`
-	Expected_salary float64            `json:"expectedSalary"`
+	Expected_salary float64            `bson:"expectedSalary" json:"expectedSalary"`
 }
