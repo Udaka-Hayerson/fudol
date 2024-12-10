@@ -28,7 +28,7 @@ type (
 		Birthday        string  `json:"birthday"`
 		Login           string  `json:"login" validate:"required"`
 		Password        string  `json:"password" validate:"required"`
-		Expected_salary float64 `json:"expectedSalary" validate:"required"`
+		Expected_salary float64 `bson:"expectedSalary,omitempty" json:"expectedSalary" validate:"required"`
 	}
 
 	SuccessAuthDTO struct {
