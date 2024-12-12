@@ -15,14 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.futudoll.R;
 import com.example.futudoll.todo.todoapp.ClickListener;
 import com.example.futudoll.todo.todoapp.model.ClassTODO;
-import com.example.futudoll.todo.todoapp.model.SubTODO;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.TODOViewHolder> {
     // notifyDataSetChanged();
-    List<SubTODO> subTODOList = new ArrayList<>();
+    List<ClassTODO> subTODOList = new ArrayList<>();
     RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     List<ClassTODO> todos;
     Context context;

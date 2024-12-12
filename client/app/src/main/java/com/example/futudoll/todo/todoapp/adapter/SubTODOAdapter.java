@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.futudoll.R;
 import com.example.futudoll.todo.todoapp.ClickListener;
-import com.example.futudoll.todo.todoapp.model.SubTODO;
+import com.example.futudoll.todo.todoapp.model.ClassTODO;
 
 import java.util.List;
 
 public class SubTODOAdapter extends RecyclerView.Adapter<SubTODOAdapter.SubTODOViewHolder>{
-    List<SubTODO> sub_todos;
+    List<ClassTODO> sub_todos;
     ClickListener sub_listener;
-    public SubTODOAdapter( List<SubTODO> sub_todos, ClickListener sub_listener) {
+    public SubTODOAdapter( List<ClassTODO> sub_todos, ClickListener sub_listener) {
         this.sub_todos = sub_todos;
         this.sub_listener = sub_listener;
     }
@@ -32,9 +32,9 @@ public class SubTODOAdapter extends RecyclerView.Adapter<SubTODOAdapter.SubTODOV
 
     @Override
     public void onBindViewHolder(@NonNull SubTODOViewHolder holder, int position) {
-        SubTODO subTODO = sub_todos.get(position);
-        holder.subTodoTitle.setText(subTODO.getSubTitle());
-        holder.descriptionTodo.setText(subTODO.getSubDescription());
+        ClassTODO subTODO = sub_todos.get(position);
+        holder.subTodoTitle.setText(subTODO.getTitle());
+        holder.descriptionTodo.setText(subTODO.getDescription());
     }
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override

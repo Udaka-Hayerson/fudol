@@ -1,20 +1,18 @@
 package com.example.futudoll.retrofit;
 
-import com.example.futudoll.todo.todoapp.model.SubTODO;
-
 import java.util.List;
 
 public class RequestTodoDTO {
     private String title;
     private String description;
     private int id = 0;
-    private int parentIDi = 0;
+    private int parentID = 0;
 
-    public RequestTodoDTO(String title, String description, int id, int parentIDi) {
+    public RequestTodoDTO(String title, String description, int id, int parentID) {
         this.title = title;
         this.description = description;
         this.id = id;
-        this.parentIDi = parentIDi;
+        this.parentID = parentID;
     }
 
     public String getTitle() {
@@ -41,11 +39,11 @@ public class RequestTodoDTO {
         this.id = id;
     }
 
-    public int getParentIDi() {
-        return parentIDi;
+    public int getParentID() {
+        return parentID;
     }
 
-    public void setParentIDi(int parentIDi) {
-        this.parentIDi = parentIDi;
+    public void setParentID(int parentID) {
+        this.parentID = parentID;
     }
 }

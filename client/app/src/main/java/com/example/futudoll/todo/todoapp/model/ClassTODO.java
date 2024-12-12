@@ -7,19 +7,19 @@ public class ClassTODO {
 
     private String title;
     private String description;
-    private List<SubTODO> subTODOList;
+    private List<ClassTODO> subTODOList; // ttodolist
     private boolean completeTODO;
-    static int count = 0;
     private int id = 0; // todo: генерація id через hashCode
-//    private int parent_id; todo: зробить одну модель з ClassTODO і SubTODO
+    private Integer parentID; //todo: зробить одну модель з ClassTODO і SubTODO
 
-    public ClassTODO(String title, String description, List<SubTODO> subTODOList, boolean completeTODO) {
+    public ClassTODO(String title, String description, List<ClassTODO> subTODOList, boolean completeTODO, Integer parentID) {
         this.title = title;
         this.description = description;
         this.subTODOList = subTODOList;
         this.completeTODO = completeTODO;
-        this.id = count;
-        count++;
+        this.id = hashCode();
+        this.parentID = parentID;
+
     }
 
     public int getId() {
@@ -46,11 +46,11 @@ public class ClassTODO {
         this.description = description;
     }
 
-    public List<SubTODO> getSubTODOList() {
+    public List<ClassTODO> getSubTODOList() {
         return subTODOList;
     }
 
-    public void setSubTODOList(List<SubTODO> subTODOList) {
+    public void setSubTODOList(List<ClassTODO> subTODOList) {
         this.subTODOList = subTODOList;
     }
 
@@ -62,14 +62,13 @@ public class ClassTODO {
         this.completeTODO = completeTODO;
     }
 
+    public Integer getParent_id() {
+        return parentID;
+    }
 
-//    public boolean isNew_user() {
-//        return new_user;
-//    }
-//
-//    public void setNew_user(boolean new_user) {
-//        this.new_user = new_user;
-//    }
+    public void setParent_id(Integer parentID) {
+        this.parentID = parentID;
+    }
 
     @Override
     public String toString() {
@@ -79,6 +78,7 @@ public class ClassTODO {
                 ", subTODOList=" + subTODOList +
                 ", completeTODO=" + completeTODO +
                 ", id=" + id +
+                ", parent_id=" + parentID +
                 '}';
     }
 
@@ -87,12 +87,14 @@ public class ClassTODO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClassTODO classTODO = (ClassTODO) o;
-        return completeTODO == classTODO.completeTODO && id == classTODO.id && title.equals(classTODO.title) && description.equals(classTODO.description) && subTODOList.equals(classTODO.subTODOList);
+        return completeTODO == classTODO.completeTODO && id == classTODO.id && parentID == classTODO.parentID &&
+                Objects.equals(title, classTODO.title) && Objects.equals(description, classTODO.description) &&
+                Objects.equals(subTODOList, classTODO.subTODOList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, subTODOList, completeTODO, id);
+        return Objects.hash(title, description, subTODOList, completeTODO, id, parentID);
     }
 }
 
