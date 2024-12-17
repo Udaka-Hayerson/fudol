@@ -6,9 +6,9 @@ public class RequestTodoDTO {
     private String title;
     private String description;
     private int id = 0;
-    private int parentID = 0;
+    private Integer parentID = 0;
 
-    public RequestTodoDTO(String title, String description, int id, int parentID) {
+    public RequestTodoDTO(String title, String description, int id, Integer parentID) {
         this.title = title;
         this.description = description;
         this.id = id;
@@ -39,11 +39,11 @@ public class RequestTodoDTO {
         this.id = id;
     }
 
-    public int getParentID() {
+    public Integer getParentID() {
         return parentID;
     }
 
-    public void setParentID(int parentID) {
+    public void setParentID(Integer parentID) {
         this.parentID = parentID;
     }
 }

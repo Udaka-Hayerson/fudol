@@ -64,9 +64,9 @@ public class MainTODOActivity
 
     public void updateAdapter() {
         getTodoFromServer();
-        todoAdapter = new TODOAdapter(TODOList, this, clickListener);
-        TODORecycler.setAdapter(todoAdapter);
-        TODORecycler.setLayoutManager(manager);
+//        todoAdapter = new TODOAdapter(TODOList, this, clickListener);
+//        TODORecycler.setAdapter(todoAdapter);
+//        TODORecycler.setLayoutManager(manager);
 //        todoAdapter.notifyDataSetChanged();
     }
 
@@ -79,6 +79,9 @@ public class MainTODOActivity
                 if(response.isSuccessful()){
                     Log.e(LOG_TAG, "todo list" + response.body());
                     TODOList = response.body();
+                    todoAdapter.notifyDataSetChanged();
+
+
                 }
                 else {
                     Log.e(LOG_TAG, "Response error: " + response.message());
@@ -95,7 +98,7 @@ public class MainTODOActivity
         });
     }
 
-    public void addTodoOnServer(String title, String description, int id, int parentID){
+    public void addTodoOnServer(String title, String description, int id, Integer parentID){
         RequestTodoDTO requestTodoDTO = new RequestTodoDTO(title, description, id, parentID);
         Call<ResponseBody> call = mainApi.addToDo(token, requestTodoDTO);
         callHandler(call);
@@ -119,35 +122,35 @@ public class MainTODOActivity
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     ResponseBody responseBody = response.body();
+
                     Log.e(LOG_TAG, String.valueOf(responseBody));
+                    Log.e(LOG_TAG, "Request successful");
 
                 } else {
-                    Log.e(LOG_TAG, "Response error: " + response.message());
-                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e(LOG_TAG, "Response error: " + response.code() + " " + response.message());
+                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Handle failure
                 Log.e(LOG_TAG, "API call failed: " + t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "API call failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void deleteTODO(int position) {
         deleteTodoFromServer(TODOList.get(position).getId());
-//        TODOList.remove(position);
-//        save();
+        TODOList.remove(position);
         updateAdapter();
 
     }
 
     public void deleteSubTODO(int position, int sub_todo_position) {
         deleteTodoFromServer(TODOList.get(position).getSubTODOList().get(sub_todo_position).getId());
-//        (TODOList.get(position).getSubTODOList()).remove(sub_todo_position);
-//        save();
+        (TODOList.get(position).getSubTODOList()).remove(sub_todo_position);
         updateAdapter();
 
     }
