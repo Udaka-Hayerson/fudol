@@ -69,6 +69,12 @@ public class TimerActivity extends Activity {
     }
 
     @Override
+    protected void onStop() {
+        saveTimeCountOnServer();
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         saveTimeCountOnServer();
         super.onDestroy();
