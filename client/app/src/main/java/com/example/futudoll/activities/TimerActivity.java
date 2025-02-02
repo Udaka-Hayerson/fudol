@@ -80,6 +80,12 @@ public class TimerActivity extends Activity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        saveTimeCountOnServer();
+        super.onBackPressed();
+    }
+
     private void saveTimeCountOnServer() {
         IncreaseTimeCountDTO increaseTimeCountDTO = new IncreaseTimeCountDTO(count);
         Call<ResponseBody> call = mainApi.increaseTimeCount("Bearer " + token, increaseTimeCountDTO);
