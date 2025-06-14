@@ -43,7 +43,7 @@ public class MainTODOActivity
     RecyclerView TODORecycler;
     TODOAdapter todoAdapter;
     LinearLayoutManager manager;
-    static List<ClassTODO> TODOList = new ArrayList<>();
+    List<ClassTODO> TODOList = new ArrayList<>();
     ClickListener clickListener;
     SharedPreferences sharedPreferences;
     String token;
@@ -76,9 +76,12 @@ public class MainTODOActivity
         call.enqueue(new Callback<List<ClassTODO>>() {
             @Override
             public void onResponse(Call<List<ClassTODO>> call, Response<List<ClassTODO>> response){
-                if(response.isSuccessful()){
+                if(response.isSuccessful() && response.body() != null){
                     Log.e(LOG_TAG, "todo list" + response.body());
                     TODOList = response.body();
+                    todoAdapter = new TODOAdapter(TODOList, MainTODOActivity.this, clickListener);
+                    TODORecycler.setAdapter(todoAdapter);
+                    TODORecycler.setLayoutManager(manager);
                     todoAdapter.notifyDataSetChanged();
 
 
@@ -120,11 +123,11 @@ public class MainTODOActivity
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()  && response.body() != null) {
                     ResponseBody responseBody = response.body();
-
-                    Log.e(LOG_TAG, String.valueOf(responseBody));
-                    Log.e(LOG_TAG, "Request successful");
+                    updateAdapter();
+                    Log.d(LOG_TAG, String.valueOf(responseBody));
+                    Log.d(LOG_TAG, "Request successful");
 
                 } else {
                     Log.e(LOG_TAG, "Response error: " + response.code() + " " + response.message());
@@ -144,28 +147,25 @@ public class MainTODOActivity
     public void deleteTODO(int position) {
         deleteTodoFromServer(TODOList.get(position).getId());
         TODOList.remove(position);
-        updateAdapter();
+
 
     }
 
     public void deleteSubTODO(int position, int sub_todo_position) {
         deleteTodoFromServer(TODOList.get(position).getSubTODOList().get(sub_todo_position).getId());
         (TODOList.get(position).getSubTODOList()).remove(sub_todo_position);
-        updateAdapter();
 
     }
 
     public void completeTODO(int position) {
         completeTodoOnServer(TODOList.get(position).getId());
         Toast.makeText(this, TODOList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-        updateAdapter();
 
     }
 
     public void completeSubTODO(int position, int sub_todo_position) {
         completeTodoOnServer((TODOList.get(position).getSubTODOList()).get(sub_todo_position).getId());
         Toast.makeText(this, (TODOList.get(position).getSubTODOList()).get(sub_todo_position).getTitle(), Toast.LENGTH_SHORT).show();
-        updateAdapter();
 
     }
 
@@ -177,22 +177,12 @@ public class MainTODOActivity
         openCreateSubDialog(position);
     }
 
-    public void openCreateDialog() {
-        DataEnterDialog dialog = new DataEnterDialog();
-        dialog.show(getSupportFragmentManager(), "Data Enter Dialog");
-    }
-
-    public void openCreateSubDialog(int position) {
-        SubDataEnterDialog subDialog = new SubDataEnterDialog(position);
-        subDialog.show(getSupportFragmentManager(), "Sub Data Enter Dialog");
-    }
-
     public void addNewTODO(String title, String description, List<ClassTODO> sub_todo_list) {
         //TODO: get API TODOList
-        List<ClassTODO> todo_list = MainTODOActivity.TODOList;
+        List<ClassTODO> todo_list = TODOList;
         todo_list.add(new ClassTODO(title, description, new ArrayList<ClassTODO>(), false, 0));
-        MainTODOActivity.TODOList = todo_list;
-        addTodoOnServer(title, description, todo_list.get(todo_list.size()-1).getId(), 0);
+        TODOList = todo_list;
+        addTodoOnServer(title, description, todo_list.get(todo_list.size()-1).getId(), 0); // todo : getID()
         updateAdapter();
     }
 
@@ -201,7 +191,7 @@ public class MainTODOActivity
         List<ClassTODO> sub_todo_list = (TODOList.get(position)).getSubTODOList();
         sub_todo_list.add(new ClassTODO(title, description, null, false, (TODOList.get(position)).getId()));
         (TODOList.get(position)).setSubTODOList(sub_todo_list);
-        addTodoOnServer(title, description, sub_todo_list.get(sub_todo_list.size() - 1).getId() , TODOList.get(position).getId());
+        addTodoOnServer(title, description, sub_todo_list.get(sub_todo_list.size() - 1).getId() , TODOList.get(position).getId()); // todo : getID()
         updateAdapter();
 
     }
@@ -232,6 +222,17 @@ public class MainTODOActivity
         Intent intentBack = new Intent(this, MenuActivity.class);
         intentBack.putExtra("token", sharedPreferences.getString("token", "loh"));
         startActivity(intentBack);
+    }
+
+
+    public void openCreateDialog() {
+        DataEnterDialog dialog = new DataEnterDialog();
+        dialog.show(getSupportFragmentManager(), "Data Enter Dialog");
+    }
+
+    public void openCreateSubDialog(int position) {
+        SubDataEnterDialog subDialog = new SubDataEnterDialog(position, TODOList.get(position).getTitle());
+        subDialog.show(getSupportFragmentManager(), "Sub Data Enter Dialog");
     }
 
     @NonNull

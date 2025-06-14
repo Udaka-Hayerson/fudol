@@ -20,10 +20,12 @@ public class SubDataEnterDialog extends AppCompatDialogFragment {
     private EditText editSubToDoTitle;
     private EditText editSubToDoDescription;
     SubDataEnterDialogListener subdialoglistener ;
-    int position;
-    public SubDataEnterDialog(int position) {
+    private final int position;
+    private final String parentTitle;
+    public SubDataEnterDialog(int position,  String parentTitle) {
         super();
         this.position = position;
+        this.parentTitle = parentTitle;
     }
 
     @NonNull
@@ -36,7 +38,7 @@ public class SubDataEnterDialog extends AppCompatDialogFragment {
         editSubToDoDescription = view.findViewById(R.id.edit_sub_todo_description);
         dialog_builder
                 .setView(view)
-                .setTitle("add sub tasks to " + (MainTODOActivity.TODOList.get(position)).getTitle())
+                .setTitle("add sub tasks to " + parentTitle)
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
